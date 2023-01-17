@@ -20,7 +20,7 @@ export const getProducts = createAsyncThunk(
 );
 
 export const listTop = createAsyncThunk(
-  "products/listTopProducts",
+  "productsTopRated/listTopProducts",
   async (arg, thunkAPI) => {
     const { rejectWithValue } = thunkAPI;
     try {
@@ -37,7 +37,7 @@ export const listTop = createAsyncThunk(
 );
 
 export const listLatest = createAsyncThunk(
-  "products/listLatestProducts",
+  "productsLatest/listLatestProducts",
   async (pageNumber = '', thunkAPI) => {
     const { rejectWithValue } = thunkAPI;
     try {
@@ -53,7 +53,7 @@ export const listLatest = createAsyncThunk(
 );
 
 export const listSale = createAsyncThunk(
-  "products/listSale",
+  "productSale/listSale",
   async ( pageNumber = "", thunkAPI) => {
     const { rejectWithValue } = thunkAPI;
     try {
@@ -69,7 +69,7 @@ export const listSale = createAsyncThunk(
 );
 
 export const listRelated = createAsyncThunk(
-  "products/listRelatedProducts",
+  "productsRelated/listRelatedProducts",
   async (arg, thunkAPI) => {
     const { rejectWithValue } = thunkAPI;
     try {
@@ -86,7 +86,7 @@ export const listRelated = createAsyncThunk(
 );
 
 export const listSortByPrice = createAsyncThunk(
-  "products/listSortByPriceProducts",
+  "SortByPrice/listSortByPriceProducts",
   async (arg, thunkAPI) => {
     const { rejectWithValue } = thunkAPI;
     try {
@@ -102,65 +102,56 @@ export const listSortByPrice = createAsyncThunk(
   }
 );
 
-const listShopFunction = async (
-  type,
-  pageNumber,
-  keyword,
-  getState,
-  dispatch
-) => {
-  let payload = {};
-  let error = null;
-  if (keyword) {
-    await dispatch(listProducts(keyword, pageNumber));
-    payload = getState().productList;
-    error = getState().productList.error;
-  } else {
-    switch (type) {
-      case "default":
-        await dispatch(listProducts("", pageNumber));
-        payload = getState().productList;
-        error = getState().productList.error;
-        break;
-      case "latest":
-        await dispatch(listLatestProducts(pageNumber));
-        payload = getState().productLatest;
-        error = getState().productLatest.error;
-        break;
-      case "rating":
-        await dispatch(listTopProducts(pageNumber));
-        payload = getState().productTopRated;
-        error = getState().productTopRated.error;
-        break;
-      case "sale":
-        await dispatch(listSaleProducts(pageNumber));
-        payload = getState().productSale;
-        error = getState().productSale.error;
-        break;
-      case "priceAsc":
-        await dispatch(listSortByPriceProducts("asc", pageNumber));
-        payload = getState().productSortByPrice;
-        error = getState().productSortByPrice.error;
-        break;
-      case "priceDesc":
-        await dispatch(listSortByPriceProducts("desc", pageNumber));
-        payload = getState().productSortByPrice;
-        error = getState().productSortByPrice.error;
-        break;
-      default:
-        break;
-    }
-  }
-  return { payload, error };
-};
 
 export const listShop = createAsyncThunk(
-  "products/listShopProduct",
+  "productShop/listShopProduct",
   async (arg, thunkAPI) => {
     const { rejectWithValue, getState, dispatch } = thunkAPI;
     try {
       const { type, pageNumber, keyword } = arg;
-      return listShopFunction(type, pageNumber, keyword, getState, dispatch);
+      let data = {};
+      let error = null;
+      if (keyword) {
+        await dispatch(getProducts(keyword, pageNumber));
+        data = getState().productList;
+        error = getState().productList.error;
+      } else {
+        switch (type) {
+          case "default":
+            await dispatch(getProducts("", pageNumber));
+            data = getState().productList;
+            error = getState().productList.error;
+            break;
+          case "latest":
+            await dispatch(listLatest(pageNumber));
+            data = getState().productLatest;
+            error = getState().productLatest.error;
+            break;
+          case "rating":
+            await dispatch(listTop(pageNumber));
+            data = getState().productTopRated;
+            error = getState().productTopRated.error;
+            break;
+          case "sale":
+            await dispatch(listSale(pageNumber));
+            data = getState().productSale;
+            error = getState().productSale.error;
+            break;
+          case "priceAsc":
+            await dispatch(listSortByPrice("asc", pageNumber));
+            data = getState().productSortByPrice;
+            error = getState().productSortByPrice.error;
+            break;
+          case "priceDesc":
+            await dispatch(listSortByPrice("desc", pageNumber));
+            data = getState().productSortByPrice;
+            error = getState().productSortByPrice.error;
+            break;
+          default:
+            break;
+        }
+      }
+      return { data, error };
     } catch (error) {
       return rejectWithValue(errors(error));
     }
@@ -168,7 +159,7 @@ export const listShop = createAsyncThunk(
 );
 
 export const filterListShop = createAsyncThunk(
-  "products/filterListShop",
+  "productShop/filterListShop",
   async (_, thunkAPI) => {
     const { rejectWithValue, getState } = thunkAPI;
     try {

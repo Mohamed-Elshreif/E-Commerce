@@ -63,7 +63,7 @@ export const TopRatedSlice = createSlice({
 });
 
 export const LatestSlice = createSlice({
-  name: "Latest",
+  name: "productsLatest",
   initialState: {
     loading: false,
     products: [],
@@ -117,7 +117,7 @@ export const productSaleSlice = createSlice({
 });
 
 export const relatedSlice = createSlice({
-  name: "related",
+  name: "productsRelated",
   initialState: {
     loading: false,
     products: [],
@@ -184,7 +184,8 @@ export const productShopSlice = createSlice({
       state.loading = true;
     },
     [listShop.fulfilled]: (state, { payload }) => {
-      const { page, pages, products, count } = payload;
+      const { page, pages, products, count } = payload.data;
+      console.log(payload)
       state.loading = false;
       state.products = products;
       state.page = page;
@@ -200,7 +201,7 @@ export const productShopSlice = createSlice({
       state.loading = true;
     },
     [filterListShop.fulfilled]: (state, { payload }) => {
-      payload ? (state.products = payload) : (state.products = tempProducts);
+      payload ? (state.products = payload) : (state.products =  state.tempProducts );
     },
     [filterListShop.rejected]: (state, { payload }) => {
       state.loading = false;

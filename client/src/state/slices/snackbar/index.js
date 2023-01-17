@@ -13,7 +13,7 @@ export const snackBarSlice = createSlice({
       state.isOpen = true;
       state.message = payload.message;
       state.variant = payload.variant;
-      state.link = payload.link;
+      state.link = payload.link || { hasLink: false };
     },
     clearSnackbar: (state) => {
       state.isOpen = false;

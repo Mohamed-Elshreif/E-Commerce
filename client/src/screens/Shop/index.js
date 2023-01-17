@@ -48,10 +48,9 @@ const ShopScreen = () => {
 
   const query = queryString.parse(location.search);
   let { sort_by = "default", page: pageNumber = 1 } = query;
-  console.log(query);
   const productShop = useSelector((state) => state.productShop);
   const { loading, error, products, page, pages } = productShop;
-
+console.log(products)
   const filter = useSelector((state) => state.filter);
   const { searchTerm, categories, brands, size, priceMax, priceMin } = filter;
 
