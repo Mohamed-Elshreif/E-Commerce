@@ -2,7 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { errors } from "../utilites/errorhandlers";
 
-const API = process.env.REACT_APP_API_URL;
+const API =process.env.REACT_APP_API_URL
 
 export const addToCart = createAsyncThunk(
   "cart/addToCart",

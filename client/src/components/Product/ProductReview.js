@@ -42,15 +42,15 @@ const ProductReview = ({ reviews, productId }) => {
       setMessage("");
     }
   };
-
   const handleSubmitReview = (e) => {
     e.preventDefault();
     if (comment.trim()) {
+      const review = {
+        rating,
+        comment,
+      }
       dispatch(
-        createProductReview({productId, review :{
-          rating,
-          comment,
-        }})
+        createProductReview({productId, review})
       );
     } else {
       setMessage("Please write a comment!");

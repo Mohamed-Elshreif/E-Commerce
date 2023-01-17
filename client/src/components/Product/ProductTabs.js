@@ -87,7 +87,7 @@ const ProductTabs = () => {
     if (newValue === 1 && !productsSale.length) {
       dispatch(listSale());
     } else if (newValue === 2 && !productsList.length) {
-      dispatch(getProducts());
+      dispatch(getProducts({}));
     }
   };
 

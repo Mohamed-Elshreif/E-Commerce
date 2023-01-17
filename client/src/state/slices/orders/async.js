@@ -3,6 +3,8 @@ import axios from "axios";
 import { errors } from "../utilites/errorhandlers";
 import { config } from "../utilites/configHeader";
 
+const API =process.env.REACT_APP_API_URL
+
 export const createOrder = createAsyncThunk(
   " createOrder/createOrder",
   async (arg, thunkAPI) => {

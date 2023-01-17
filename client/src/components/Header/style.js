@@ -7,10 +7,6 @@ export const useStyles = makeStyles((theme) => ({
     transition: "all .2s",
     boxShadow: "0px 2px 8px -1px rgb(0 0 0 / 10%)",
     paddingRight: "0 !important",
-    // [theme.breakpoints.up('md')]: {
-    //   backgroundColor: 'transparent',
-    //   boxShadow: 'none',
-    // },
   },
   header2: {
     backgroundColor: theme.palette.background.paper,

@@ -2,12 +2,12 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { errors } from "../utilites/errorhandlers";
 const API =process.env.REACT_APP_API_URL
+
 export const getProducts = createAsyncThunk(
   "products/getProducts",
-  async (arg, thunkAPI) => {
+  async ({keyword = "", pageNumber = "", option = "" }, thunkAPI) => {
     const { rejectWithValue } = thunkAPI;
     try {
-      const { keyword = "", pageNumber = "", option = "" } = arg;
       const { data } = await axios.get(
         `${API}/api/products?keyword=${keyword}&pageNumber=${pageNumber}&option=${option}`
       );
@@ -38,10 +38,9 @@ export const listTop = createAsyncThunk(
 
 export const listLatest = createAsyncThunk(
   "products/listLatestProducts",
-  async (arg, thunkAPI) => {
+  async (pageNumber = '', thunkAPI) => {
     const { rejectWithValue } = thunkAPI;
     try {
-      const { pageNumber = "" } = arg;
       const { data } = await axios.get(
         `${API}/api/products/latest?pageNumber=${pageNumber}`
       );
@@ -55,10 +54,9 @@ export const listLatest = createAsyncThunk(
 
 export const listSale = createAsyncThunk(
   "products/listSale",
-  async (arg, thunkAPI) => {
+  async ( pageNumber = "", thunkAPI) => {
     const { rejectWithValue } = thunkAPI;
     try {
-      const { pageNumber = "" } = arg;
       const { data } = await axios.get(
         `${API}/api/products/sale?pageNumber=${pageNumber}`
       );

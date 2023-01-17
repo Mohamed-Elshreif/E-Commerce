@@ -27,9 +27,8 @@ const CartPreview = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  const isOpenDrawer = useSelector((state) => state.cartOpenDrawer);
+  const {isOpen} = useSelector((state) => state.cartOpenDrawer);
   const { cartItems } = useSelector((state) => state.cart);
-
   const removeFromCartHandler = (id) => {
     dispatch(removeFromCart({id}));
   };
@@ -45,7 +44,7 @@ const CartPreview = () => {
   return (
     <SwipeableDrawer
       anchor="right"
-      open={isOpenDrawer}
+      open={isOpen}
       onClose={onDrawerClose}
       onOpen={onDrawerOpen}
     >

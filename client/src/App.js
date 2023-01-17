@@ -9,7 +9,7 @@ import { router } from "./Routers/index.js";
 import { useSelector } from "react-redux";
 
 function App() {
-    const mode =   useSelector((state) => state.theme);
+    const {mode} =   useSelector((state) => state.theme);
     const theme = useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
   return (
     <ThemeProvider theme={createTheme(theme)}>

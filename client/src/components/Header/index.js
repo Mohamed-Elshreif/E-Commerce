@@ -20,8 +20,9 @@ import HeaderUser from "../HeaderUser";
 import SearchBox from "../SearchBox";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { Drawer, Hidden } from "@material-ui/core";
-import {cartOpenDrawer} from '../../state/slices/cart/index';
+import {cartOpenDrawer} from '../../state/slices/cart/index'
 import {logout} from '../../state/slices/auth/index';
+import {changeTheme} from '../../state/slices/theme/index'
 import { useDispatch, useSelector } from "react-redux";
 import { useStyles } from "./style";
 
@@ -32,14 +33,12 @@ const Header = () => {
   const [mobile, setMobile] = useState(false);
   const [openSearchDrawer, setOpenSearchDrawer] = useState(false);
   const onMobile = useMediaQuery("(max-width:740px)");
-
   const classes = useStyles({ mobile });
   const trigger = useScrollTrigger({
     disableHysteresis: true,
     target: window ? window : undefined,
     threshold: 80,
   });
-
   const handleCloseDrawer = () => {
     setMobile(false);
   };
@@ -213,7 +212,7 @@ const Header = () => {
               <CartIcon />
             </Badge>
           </IconButton>
-          <IconButton>
+          <IconButton onClick={() => dispatch(changeTheme('light'))}>
               <Brightness7Icon />
           </IconButton>
           <Hidden smDown>

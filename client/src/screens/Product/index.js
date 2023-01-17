@@ -50,13 +50,14 @@ const ProductScreen = () => {
   const classes = useStyles(product);
 
   const addToCartHandler = ({ qty, size }) => {
+    const link = {
+      hasLink: true,
+      to: "/cart",
+      text: "View Cart",
+    }
     dispatch(addToCart({id, qty, size}));
     dispatch(
-      openSnackbar("The product has been added to cart!", "success", {
-        hasLink: true,
-        to: "/cart",
-        text: "View Cart",
-      })
+      openSnackbar({message:"The product has been added to cart!", variant:"success", link})
     );
   };
 

@@ -2,6 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { errors } from "../utilites/errorhandlers";
 import { config } from "../utilites/configHeader";
+const API =process.env.REACT_APP_API_URL
 
 export const listProductDetails = createAsyncThunk(
   "productDetails/listProductDetails",
@@ -23,7 +24,7 @@ export const createProductReview = createAsyncThunk(
     const { rejectWithValue, getState } = thunkAPI;
     try {
       const { productId, review } = arg;
-      console.log(ratingInfo);
+      console.log(arg);
       const {
         userLogin: { userInfo },
       } = getState();

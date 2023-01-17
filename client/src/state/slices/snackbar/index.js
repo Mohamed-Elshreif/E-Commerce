@@ -8,7 +8,7 @@ const initialState = {
 export const snackBarSlice = createSlice({
   name: "snackBar",
   initialState,
-  reducer: {
+  reducers: {
     openSnackbar: (state, { payload }) => {
       state.isOpen = true;
       state.message = payload.message;

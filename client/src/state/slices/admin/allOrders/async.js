@@ -3,6 +3,9 @@ import { errors } from "../../utilites/errorhandlers";
 import { config } from "../../utilites/configHeader";
 import axios from "axios";
 
+const API =process.env.REACT_APP_API_URL
+
+
 ///    LIST ALL ORDERS   ///
 export const listAllOrders = createAsyncThunk(
   "createOrder/listAllOrders",

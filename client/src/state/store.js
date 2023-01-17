@@ -40,7 +40,7 @@ const storeToolkit = configureStore({
     productCreate: createProductS, // for admin user only
     productDelete: deleteProductS, // for admin user only
     productUpdate: updateProductS, // for admin user only
-    productCreateReview: productCreateReview,
+    productReviewCreate: productCreateReview,
     cart: cart,
     userLogin: authSlice,
     userRegister: registerSlice,

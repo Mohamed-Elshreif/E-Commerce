@@ -64,10 +64,10 @@ const cartSlice = createSlice({
 
 const cartDrawerSlice = createSlice({
   name: "cartDrawer",
-  initialState: false,
-  reducer:{
+  initialState: {isOpen: false},
+  reducers:{
     cartOpenDrawer: (state,{payload}) => {
-      state = payload
+      state.isOpen = payload;
     }
   }
 })
