@@ -1,7 +1,7 @@
 import { Box, Grid, Paper, Typography } from '@material-ui/core';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { listRelatedProducts } from '../../actions/productActions';
+import { listRelated } from '../../state/slices/products/async';
 import ProductCard from './ProductCard';
 import Loader from '../Loader';
 import Message from '../Message';
@@ -12,7 +12,7 @@ const ProductRelated = ({ category = '' }) => {
   const { loading, error, products = [] } = productRelated;
 
   useEffect(() => {
-    dispatch(listRelatedProducts(category));
+    dispatch(listRelated({category}));
   }, [dispatch, category]);
   return (
     <>

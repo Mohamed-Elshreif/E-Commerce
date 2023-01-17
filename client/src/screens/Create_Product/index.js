@@ -4,8 +4,9 @@ import { Link as RouterLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Message from "../../components/Message";
 import Loader from "../../components/Loader";
-import { openSnackbar } from "../../actions/snackbarActions";
-import { createProduct } from "../../actions/productActions";
+import {openSnackbar} from '../../state/slices/snackbar/index'
+import { createProduct } from "../../state/slices/admin/productEdit/async";
+
 import {
   Typography,
   Paper,

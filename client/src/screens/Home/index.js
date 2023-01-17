@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { listTopProducts } from "../../actions/productActions";
+import {listTop} from '../../state/slices/products/async'
 import Loader from "../../components/Loader";
 import Meta from "../../components/Meta";
 import HomeCarousel from "../../components/Home/HomeCarousel";
@@ -14,7 +14,6 @@ import HomeService from "../../components/Home/HomeService";
 import Alert from "@material-ui/lab/Alert";
 
 const HomeScreen = () => {
-  console.log(process.env.REACT_APP_API_URL);
   const dispatch = useDispatch();
   const productTopRated = useSelector((state) => state.productTopRated);
 
@@ -25,7 +24,7 @@ const HomeScreen = () => {
   } = productTopRated;
 
   useEffect(() => {
-    dispatch(listTopProducts(1, 8));
+    dispatch(listTop({ pageNumber:"1", perPage :"8"}));
   }, [dispatch]);
 
   return (

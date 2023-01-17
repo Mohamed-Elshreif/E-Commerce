@@ -3,7 +3,7 @@ import axios from "axios";
 import { errors } from "../utilites/errorhandlers";
 import { config } from "../utilites/configHeader";
 
-const userDetails = createAsyncThunk(
+const usersDetails = createAsyncThunk(
   "userDetails/details",
   async (arg, thunkAPI) => {
     const { rejectWithValue, getState } = thunkAPI;
@@ -21,4 +21,4 @@ const userDetails = createAsyncThunk(
   }
 );
 
-export default userDetails;
+export default usersDetails;

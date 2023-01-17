@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { listUsers, deleteUser } from "../../actions/userActions";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import {
   Button,
@@ -13,7 +12,9 @@ import {
   useMediaQuery,
 } from "@material-ui/core";
 import { DataGrid } from "@material-ui/data-grid";
-import { openSnackbar } from "../../actions/snackbarActions";
+import getListUsers from '../../state/slices/admin/userList/async';
+import deleteUser from '../../state/slices/admin/userDelete/async';
+import { openSnackbar } from "../../state/slices/snackbar/index";
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import Meta from "../../components/Meta";
@@ -77,7 +78,7 @@ const UserListScreen = ({ history }) => {
 
   useEffect(() => {
     if (userInfo && userInfo.isAdmin) {
-      dispatch(listUsers());
+      dispatch(getListUsers());
     } else {
       navigate("/login");
     }
@@ -91,7 +92,7 @@ const UserListScreen = ({ history }) => {
 
   const deleteHandler = (id) => {
     if (window.confirm("Are you sure to delete this user?")) {
-      dispatch(deleteUser(id));
+      dispatch(deleteUser({id}));
     }
   };
   return (

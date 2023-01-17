@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { listProducts, deleteProduct } from "../../actions/productActions";
+import {getProducts} from '../../state/slices/products/async';
+
 import {
   Button,
   Container,
@@ -11,13 +12,15 @@ import {
   Link,
   Box,
 } from "@material-ui/core";
-import { openSnackbar } from "../../actions/snackbarActions";
+import { openSnackbar } from "../../state/slices/snackbar/index";
 import {
   DataGrid,
   GridToolbarContainer,
   GridToolbarExport,
 } from "@material-ui/data-grid";
-import { PRODUCT_CREATE_RESET } from "../../constants/productConstants";
+import {deleteProduct} from '../../state/slices/admin/productEdit/async';
+import {createProductRest} from '../../state/slices/admin/productEdit/index';
+
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { useStyles } from "./style";
 import { AiOutlineDelete, AiOutlineEdit, AiOutlinePlus } from "react-icons/ai";
@@ -100,13 +103,13 @@ const ProductListScreen = () => {
   ];
 
   useEffect(() => {
-    dispatch({ type: PRODUCT_CREATE_RESET });
+    dispatch(createProductRest());
 
     if (!userInfo || !userInfo.isAdmin) {
       Navigate("/login");
     }
 
-    dispatch(listProducts("", "", "all"));
+    dispatch(getProducts({ keyword : "", pageNumber : "", option : "all" }));
   }, [dispatch, Navigate, userInfo, successDelete]);
 
   useEffect(() => {
@@ -119,7 +122,7 @@ const ProductListScreen = () => {
 
   const deleteHandler = (id) => {
     if (window.confirm("Are you sure")) {
-      dispatch(deleteProduct(id));
+      dispatch(deleteProduct({id}));
     }
   };
 

@@ -17,7 +17,8 @@ import { Link as RouterLink } from "react-router-dom";
 import ClearIcon from "@material-ui/icons/Clear";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { useDispatch, useSelector } from "react-redux";
-import { removeFromCart, setOpenCartDrawer } from "../../actions/cartActions";
+import {removeFromCart} from '../../state/slices/cart/async'
+import {cartOpenDrawer} from '../../state/slices/cart'
 import emptyGif from "../../assets/images/cart.webp";
 import { Link as LinkRouter } from "react-router-dom";
 import { useStyles } from "./style";
@@ -30,15 +31,15 @@ const CartPreview = () => {
   const { cartItems } = useSelector((state) => state.cart);
 
   const removeFromCartHandler = (id) => {
-    dispatch(removeFromCart(id));
+    dispatch(removeFromCart({id}));
   };
 
   const onDrawerOpen = () => {
-    dispatch(setOpenCartDrawer(true));
+    dispatch(cartOpenDrawer(true));
   };
 
   const onDrawerClose = () => {
-    dispatch(setOpenCartDrawer(false));
+    dispatch(cartOpenDrawer(false));
   };
 
   return (

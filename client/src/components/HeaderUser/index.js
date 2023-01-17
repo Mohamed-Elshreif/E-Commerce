@@ -8,7 +8,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import MenuList from "@material-ui/core/MenuList";
 import { ReactComponent as UserIcon } from "../../assets/icons/user.svg";
 import { Link as RouterLink } from "react-router-dom";
-import { logout } from "../../actions/userActions";
+import {logout} from '../../state/slices/auth/index';
 import { useDispatch, useSelector } from "react-redux";
 import { FiLogIn } from "react-icons/fi";
 import { useStyles } from "./style";

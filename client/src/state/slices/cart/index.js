@@ -62,4 +62,18 @@ const cartSlice = createSlice({
   },
 });
 
-export default cartSlice.reducer;
+const cartDrawerSlice = createSlice({
+  name: "cartDrawer",
+  initialState: false,
+  reducer:{
+    cartOpenDrawer: (state,{payload}) => {
+      state = payload
+    }
+  }
+})
+
+
+
+export const {cartOpenDrawer} = cartDrawerSlice.actions
+export const cartDrawer = cartDrawerSlice.reducer
+export const cart = cartSlice.reducer;

@@ -21,4 +21,5 @@ export const snackBarSlice = createSlice({
   },
 });
 
+export const {openSnackbar,clearSnackbar} = snackBarSlice.actions
 export default snackBarSlice.reducer;

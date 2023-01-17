@@ -2,8 +2,8 @@ import React from "react";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Meta from "../../components/Meta";
-import { removeFromCart } from "../../actions/cartActions";
-import { openSnackbar } from "../../actions/snackbarActions";
+import {removeFromCart} from '../../state/slices/cart/async';
+import {openSnackbar} from '../../state/slices/snackbar/index'
 import {
   Avatar,
   Box,
@@ -45,8 +45,8 @@ const CartScreen = () => {
     .toFixed(2);
 
   const removeFromCartHandler = (id) => {
-    dispatch(removeFromCart(id));
-    dispatch(openSnackbar("Item has been removed from the cart", "success"));
+    dispatch(removeFromCart({id}));
+    dispatch(openSnackbar({message:"Item has been removed from the cart", variant:"success"}));
   };
 
   const checkoutHandler = () => {

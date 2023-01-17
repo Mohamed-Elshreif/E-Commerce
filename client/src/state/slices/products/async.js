@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { errors } from "../utilites/errorhandlers";
-
+const API =process.env.REACT_APP_API_URL
 export const getProducts = createAsyncThunk(
   "products/getProducts",
   async (arg, thunkAPI) => {
@@ -54,7 +54,7 @@ export const listLatest = createAsyncThunk(
 );
 
 export const listSale = createAsyncThunk(
-  "products/getProducts",
+  "products/listSale",
   async (arg, thunkAPI) => {
     const { rejectWithValue } = thunkAPI;
     try {
@@ -170,7 +170,7 @@ export const listShop = createAsyncThunk(
 );
 
 export const filterListShop = createAsyncThunk(
-  "products/getProducts",
+  "products/filterListShop",
   async (_, thunkAPI) => {
     const { rejectWithValue, getState } = thunkAPI;
     try {

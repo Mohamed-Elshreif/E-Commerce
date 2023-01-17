@@ -16,12 +16,13 @@ import {
   Accordion,
   useMediaQuery,
 } from "@material-ui/core";
+
 import {
   addRangePrice,
   addCategories,
   addSize,
   addBrands,
-} from "../../actions/filterActions";
+} from "../../state/slices/filter/index";
 import { useDispatch } from "react-redux";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import SearchBox from "../SearchBox";

@@ -6,10 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Message from "../../components/Message";
 import Loader from "../../components/Loader";
 import ProductFilterBar from "../../components/Product/ProductFilterBar";
-import {
-  listShopProduct,
-  filterListShopProduct,
-} from "../../actions/productActions";
+import {listShop,filterListShop} from '../../state/slices/products/async';
 import {
   removeSearchTerm,
   removeRangePrice,
@@ -17,7 +14,7 @@ import {
   removeSize,
   removeBrand,
   filterClearAll,
-} from "../../actions/filterActions";
+} from "../../state/slices/filter/index";
 import {
   Container,
   Link,
@@ -63,7 +60,7 @@ const ShopScreen = () => {
   };
 
   useEffect(() => {
-    dispatch(listShopProduct(sort_by, pageNumber, searchTerm));
+    dispatch(listShop({type:sort_by, pageNumber, keyword : searchTerm}));
   }, [dispatch, sort_by, pageNumber, searchTerm]);
 
   useEffect(() => {
@@ -71,7 +68,7 @@ const ShopScreen = () => {
   }, [pageNumber]);
 
   useEffect(() => {
-    dispatch(filterListShopProduct());
+    dispatch(filterListShop());
   }, [dispatch, filter, page]);
 
   useEffect(() => {

@@ -64,4 +64,4 @@ export const {
   removeBrand,
   filterClearAll,
 } = filterSlice.actions;
-export default cartSlice.reducer;
+export default filterSlice.reducer;

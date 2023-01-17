@@ -13,8 +13,8 @@ import Rating from "@material-ui/lab/Rating";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link as RouterLink } from "react-router-dom";
-import { PRODUCT_CREATE_REVIEW_RESET } from "../../constants/productConstants.js";
-import { createProductReview } from "../../actions/productActions.js";
+import { productReviewRest } from "../../state/slices/productDetails";
+import {createProductReview} from '../../state/slices/productDetails/async';
 import Message from "../Message";
 import Loader from "../Loader";
 import { useReviewStyles } from "./style";
@@ -47,10 +47,10 @@ const ProductReview = ({ reviews, productId }) => {
     e.preventDefault();
     if (comment.trim()) {
       dispatch(
-        createProductReview(productId, {
+        createProductReview({productId, review :{
           rating,
           comment,
-        })
+        }})
       );
     } else {
       setMessage("Please write a comment!");
@@ -63,7 +63,7 @@ const ProductReview = ({ reviews, productId }) => {
       setComment("");
     }
     if (!productId) {
-      dispatch({ type: PRODUCT_CREATE_REVIEW_RESET });
+      dispatch(productReviewRest());
     }
   }, [dispatch, successProductReview, productId]);
 

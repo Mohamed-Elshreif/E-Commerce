@@ -2,9 +2,10 @@ import React, { useEffect } from "react";
 import Message from "../../components/Message";
 import Loader from "../../components/Loader";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserDetails, updateUser } from "../../actions/userActions";
-import { openSnackbar } from "../../actions/snackbarActions";
-import { USER_UPDATE_RESET } from "../../constants/userConstants";
+import updateUsers from '../../state/slices/admin/userUpdate/async';
+import usersDetails from '../../state/slices/userDetails/async';
+import {userUpdateRest} from '../../state/slices/admin/userUpdate/index';
+import { openSnackbar } from "../../state/slices/snackbar/index";
 import { Link as RouterLink, useParams, useNavigate } from "react-router-dom";
 import { useForm, Controller } from "react-hook-form";
 import {
@@ -43,11 +44,11 @@ const UserEditScreen = () => {
 
   useEffect(() => {
     if (successUpdate) {
-      dispatch({ type: USER_UPDATE_RESET });
+      dispatch(userUpdateRest());
       navigate("/admin/userlist");
     } else {
       if (!user.name || user._id !== id) {
-        dispatch(getUserDetails(id));
+        dispatch(usersDetails({id}));
       } else {
         setValue("name", user.name, { shouldValidate: true });
         setValue("email", user.email, { shouldValidate: true });
@@ -65,7 +66,8 @@ const UserEditScreen = () => {
   }, [dispatch, successUpdate, errorUpdate]);
 
   const submitHandler = ({ name, email, isAdmin }) => {
-    dispatch(updateUser({ _id: id, name, email, isAdmin }));
+    const user = {id, name, email, isAdmin}
+    dispatch(updateUsers({ userId: id,user }));
   };
 
   return (
