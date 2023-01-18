@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import clsx from "clsx";
-import logo from "../../assets/images/logo.png";
 import { ReactComponent as SearchIcon } from "../../assets/icons/search.svg";
 import { ReactComponent as CartIcon } from "../../assets/icons/cart.svg";
-
+import {useTheme} from '@material-ui/core/styles'
 import { Link } from "react-router-dom";
 import useScrollTrigger from "@material-ui/core/useScrollTrigger";
 import AppBar from "@material-ui/core/AppBar";
@@ -25,9 +24,11 @@ import {logout} from '../../state/slices/auth/index';
 import {changeTheme} from '../../state/slices/theme/index'
 import { useDispatch, useSelector } from "react-redux";
 import { useStyles } from "./style";
+import Logo from "../logo";
 
 const Header = () => {
   const dispatch = useDispatch();
+  const {palette : {type}} = useTheme();
   const { cartItems } = useSelector((state) => state.cart);
   const { userInfo } = useSelector((state) => state.userLogin);
   const [mobile, setMobile] = useState(false);
@@ -184,9 +185,7 @@ const Header = () => {
             </Drawer>
           )}
         </Toolbar>
-        <Link to="/" className={classes.logoWrapper}>
-          <img src={logo} alt="logo" className={classes.logo} />
-        </Link>
+       <Logo position='center'/>
         <div className={classes.sectionDesktop}>
           <IconButton onClick={() => setOpenSearchDrawer(true)}>
             <SearchIcon height={22} width={22} className={classes.iconSVG}/>
@@ -213,7 +212,7 @@ const Header = () => {
             </Badge>
           </IconButton>
           <IconButton onClick={() => dispatch(changeTheme('light'))}>
-              <Brightness7Icon />
+              {type ==='light' ? <Brightness4Icon/> : <Brightness7Icon />}
           </IconButton>
           <Hidden smDown>
             <HeaderUser />

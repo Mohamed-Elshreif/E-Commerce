@@ -1,12 +1,10 @@
 import React from "react";
 import { Container, IconButton, Typography } from "@material-ui/core";
-import { Link } from "react-router-dom";
-import logo from "../../assets/images/logo.png";
-
 import { VscTwitter } from "react-icons/vsc";
 import { ImGooglePlus } from "react-icons/im";
 import { RiRssFill, RiLinkedinFill, RiFacebookFill } from "react-icons/ri";
 import { useStyles } from "./style";
+import Logo from "../logo";
 
 const Footer = () => {
   const classes = useStyles();
@@ -14,9 +12,7 @@ const Footer = () => {
     <footer>
       <Container className={classes.root}>
         <div className={classes.box}>
-          <Link to="/" className={classes.logoWrapper}>
-            <img src={logo} alt="logo" className={classes.logo} />
-          </Link>
+     <Logo position='flex-start'/>
           <Typography
             variant="body2"
             component="p"
