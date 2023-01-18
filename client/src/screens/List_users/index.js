@@ -22,14 +22,13 @@ import Loader from "../../components/Loader";
 import Message from "../../components/Message";
 import { useStyles } from "./style";
 
-const UserListScreen = ({ history }) => {
+const UserListScreen = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const onMobile = useMediaQuery("(max-width:740px)");
-  const userList = useSelector((state) => state.userList);
-  let { loading, error, users = [] } = userList;
-  users = users.map((user) => ({ ...user, id: user._id }));
+  const { loading, error, users = [] } = useSelector((state) => state.userList);
+  const listUsers = users && users.map((user) => ({ ...user, id: user._id }));
 
   const { userInfo } = useSelector((state) => state.userLogin);
   const userDelete = useSelector((state) => state.userDelete);
@@ -86,7 +85,7 @@ const UserListScreen = ({ history }) => {
 
   useEffect(() => {
     if (successDelete) {
-      dispatch(openSnackbar("The user has been deleted", "success"));
+      dispatch(openSnackbar({message:"The user has been deleted",variant: "success"}));
     }
   }, [dispatch, successDelete]);
 
@@ -137,7 +136,7 @@ const UserListScreen = ({ history }) => {
             className={classes.users}
             elevation={0}
           >
-            <DataGrid rows={users} columns={columns} pageSize={10} autoHeight />
+            <DataGrid rows={listUsers} columns={columns} pageSize={10} autoHeight />
           </Grid>
         </Grid>
       )}

@@ -1,12 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
+import secureLocalStorage from "react-secure-storage";
 import loginUser from "./async";
 
 // GET user info from local Storage
-const userInfo = localStorage.getItem("userInfo")
-  ? JSON.parse(localStorage.getItem("userInfo"))
+const userInfo = secureLocalStorage.getItem("userInfo")
+  ? JSON.parse(secureLocalStorage.getItem("userInfo"))
   : null;
 
 const initialState = {
+  isAuth: false,
   loading: false,
   userInfo,
   error: null,
@@ -17,8 +19,9 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     logout: (state) => {
-      localStorage.removeItem("userInfo");
-      state = {};
+      state.isAuth = false;
+      state.userInfo = null;
+      secureLocalStorage.removeItem('userInfo')
     },
   },
   extraReducers: {
@@ -29,11 +32,12 @@ export const authSlice = createSlice({
     [loginUser.fulfilled]: (state, action) => {
       state.loading = false;
       state.userInfo = action.payload;
+      state.isAuth = true;
     },
     [loginUser.rejected]: (state, action) => {
       state.loading = false;
       state.error = action.payload;
-    },
+    }
   },
 });
 

@@ -11,7 +11,7 @@ const initialState = {
 export const updateProfileSlice = createSlice({
   name: "updateProfile",
   initialState,
-  reducer: {
+  reducers: {
     userUpdateRest: (state) => {
       state.userInfo = {};
     },

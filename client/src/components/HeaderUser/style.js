@@ -7,9 +7,7 @@ export const useStyles = makeStyles((theme) => ({
   paper: {
     marginRight: theme.spacing(2),
   },
-  icon: {
-    "& path": {
-      stroke: "#fff",
-    },
-  },
+  iconSVG: {
+    fill: theme.palette.type === 'light' ?  theme.palette.text.secondary : '#fff',
+  }
 }));

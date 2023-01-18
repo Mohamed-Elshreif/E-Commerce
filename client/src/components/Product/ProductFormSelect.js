@@ -80,6 +80,7 @@ const ProductFormSelect = ({ item, className }) => {
         size="small"
         startIcon={<AiOutlineSync color="#fff" />}
         disableElevation
+        
       >
         Update
       </Button>

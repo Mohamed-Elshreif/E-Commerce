@@ -4,7 +4,7 @@ import getListUsers from "./async";
 const initialState = {
   loading: false,
   error: null,
-  users: null,
+  users: [],
 };
 
 export const usersListSlice = createSlice({
@@ -22,6 +22,7 @@ export const usersListSlice = createSlice({
     [getListUsers.fulfilled]: (state, { payload }) => {
       state.loading = false;
       state.users = payload;
+      console.log(payload)
     },
     [getListUsers.rejected]: (state, { payload }) => {
       state.loading = false;

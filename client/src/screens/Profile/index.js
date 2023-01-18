@@ -113,7 +113,7 @@ const ProfileScreen = () => {
               <>
                 <Box className={classes.profile}>
                   <StyledBadge
-                    overlap="circle"
+                    overlap="circular"
                     anchorOrigin={{
                       vertical: "bottom",
                       horizontal: "right",

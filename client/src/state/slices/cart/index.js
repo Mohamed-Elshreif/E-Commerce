@@ -30,6 +30,10 @@ const cartSlice = createSlice({
     cartItems,
     shippingAddress,
     paymentMethod,
+    itemsPrice: 0,
+    taxPrice: null,
+    shippingPrice : null,
+    totalPrice : null
   },
   extraReducers: {
     [addToCart.fulfilled]: (state, { payload }) => {

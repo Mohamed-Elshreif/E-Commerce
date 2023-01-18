@@ -189,7 +189,7 @@ const Header = () => {
         </Link>
         <div className={classes.sectionDesktop}>
           <IconButton onClick={() => setOpenSearchDrawer(true)}>
-            <SearchIcon height={22} width={22} />
+            <SearchIcon height={22} width={22} className={classes.iconSVG}/>
           </IconButton>
 
           <Drawer

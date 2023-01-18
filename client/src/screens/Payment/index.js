@@ -1,7 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CheckoutSteps from "../../components/CheckoutSteps";
-import { savePaymentMethod } from "../../actions/cartActions";
 import {addPaymentMethod} from '../../state/slices/cart/async';
 import Meta from "../../components/Meta";
 import {
@@ -40,7 +39,7 @@ const PaymentScreen = () => {
   }
 
   const submitHandler = ({ paymentMethod }) => {
-    dispatch(savePaymentMethod(paymentMethod));
+    dispatch(addPaymentMethod(paymentMethod));
     navigate("/placeorder");
   };
 

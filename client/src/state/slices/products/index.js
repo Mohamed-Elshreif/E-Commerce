@@ -195,7 +195,7 @@ export const productShopSlice = createSlice({
     },
     [listShop.rejected]: (state, { payload }) => {
       state.loading = false;
-      state.error = payload;
+      state.error = payload.error;
     },
     [filterListShop.pending]: (state) => {
       state.loading = true;

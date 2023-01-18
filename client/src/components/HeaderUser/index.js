@@ -49,7 +49,7 @@ export default function HeaderUser() {
         {userInfo ? (
           <>
             <IconButton ref={anchorRef} onClick={handleToggle}>
-              <UserIcon height={22} className={classes.icon} />
+              <UserIcon height={26} width={26} className={classes.iconSVG} />
             </IconButton>
             <Popper
               open={open}

@@ -1,11 +1,24 @@
-import React from "react";
+import { Button ,Box} from "@material-ui/core";
+import notfound from '../../assets/images/not-found.png';
 
-function NotPage() {
+const NotFound = () => {
   return (
-    <div>
-      https://cdn.dribbble.com/users/285475/screenshots/2083086/dribbble_1.gif
-    </div>
+    <Box
+      sx={{
+        width: "100%",
+        height: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        flexDirection:'column',
+        alignItems: "center",
+      }}
+    >
+      <Box>
+        <img src={notfound} alt='404'/>
+      </Box>
+        <Button variant="contained" color='secondary'>Back to home</Button>
+    </Box>
   );
-}
+};
 
-export default NotPage;
+export default NotFound;

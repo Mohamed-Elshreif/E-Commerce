@@ -41,7 +41,7 @@ const PlaceOrderScreen = () => {
   const classes = useStyles();
   const navigate = useNavigate();
   const cart = useSelector((state) => state.cart);
-
+console.log(cart)
   if (!cart.shippingAddress.address) {
     navigate("/shipping");
   } else if (!cart.paymentMethod) {

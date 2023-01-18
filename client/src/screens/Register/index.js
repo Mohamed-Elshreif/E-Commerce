@@ -22,6 +22,7 @@ import InputController from "../../components/InputController";
 import { VscEyeClosed, VscEye } from "react-icons/vsc";
 import { BiArrowBack } from "react-icons/bi";
 import { useStyles } from "./style";
+import AuthThirdParty from "../../components/authThirdParty";
 
 const RegisterScreen = () => {
   const classes = useStyles();
@@ -145,6 +146,7 @@ const RegisterScreen = () => {
                 Login
               </Link>
             </Box>
+            <AuthThirdParty/>
             {loading && <Loader my={0} />}
             {error && <Message mt={0}>{error}</Message>}
           </Box>

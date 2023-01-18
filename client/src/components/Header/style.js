@@ -82,4 +82,7 @@ export const useStyles = makeStyles((theme) => ({
     top: 10,
     left: 20,
   },
+  iconSVG: {
+    fill: theme.palette.text.primary,
+  }
 }));

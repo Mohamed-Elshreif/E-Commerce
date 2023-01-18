@@ -23,10 +23,11 @@ export const addToCart = createAsyncThunk(
         product: data._id,
         countInStock: data.countInStock,
       };
-      // Adding cartItems to localStorage
+      const pervState = getState().cart.cartItems
+    
       localStorage.setItem(
         "cartItems",
-        JSON.stringify(getState().cart.cartItems)
+        JSON.stringify(pervState)
       );
       return payload;
     } catch (error) {
