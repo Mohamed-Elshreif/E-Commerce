@@ -7,7 +7,6 @@ import Loader from "../../components/Loader";
 import { listProductDetails } from "../../state/slices/productDetails/async";
 import { openSnackbar } from "../../state/slices/snackbar/index";
 import { updateProduct } from "../../state/slices/admin/productEdit/async";
-import { PRODUCT_UPDATE_RESET } from "../../constants/productConstants";
 import {
   Typography,
   Paper,

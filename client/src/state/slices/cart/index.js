@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createOrder } from "../orders/async";
-import _omit from "lodash.omit";
+
 import {
   addToCart,
   removeFromCart,

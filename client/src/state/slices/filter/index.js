@@ -7,43 +7,40 @@ const filterSlice = createSlice({
     brands: [],
     sizes: [],
     searchTerm: "",
+    priceMax: null,
+    priceMin: null
   },
-  reducer: {
+  reducers: {
     addSearchTerm: (state, { payload }) => {
       state.searchTerm = payload;
     },
     removeSearchTerm: (state) => {
-      state = _omit(state, "searchTerm");
+      state.searchTerm = '';
     },
     addRangePrice: (state, { payload }) => {
       state.priceMax = payload.priceMax;
       state.priceMin = payload.priceMin;
     },
     removeRangePrice: (state, { payload }) => {
-      state =
-        payload === "min"
-          ? _omit(state, ["priceMin"])
-          : _omit(state, ["priceMax"]);
+        payload === "min" ? state.priceMin = null : state.priceMax = null;
     },
     addCategories: (state, { payload }) => {
-      state.categories.indexOf(payload) < 0
-        ? state.categories.push(payload)
-        : state;
+      state.categories.indexOf(payload) && state.categories.push(payload)
     },
     removeCategory: (state, { payload }) => {
-      state.categories.filter((category) => category !== payload);
+      state.categories = state.categories.filter((category) => category !== payload);
     },
     addSize: (state, { payload }) => {
-      state.size = payload;
+      state.sizes = payload;
     },
     removeSize: (state) => {
-      _omit(state, "size");
+      state.sizes = []
     },
     addBrands: (state, { payload }) => {
-      state.brands.indexOf(payload) < 0 ? state.brands.push(payload) : state;
+      state.brands.indexOf(payload) && state.brands.push(payload);
     },
     removeBrand: (state, { payload }) => {
-      state.brands.filter((brand) => brand !== payload);
+      state.brands = state.brands.filter((brand) => brand !== payload);
     },
     filterClearAll: (state) => {
       state = {};

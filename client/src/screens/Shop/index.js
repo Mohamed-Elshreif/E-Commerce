@@ -50,7 +50,6 @@ const ShopScreen = () => {
   let { sort_by = "default", page: pageNumber = 1 } = query;
   const productShop = useSelector((state) => state.productShop);
   const { loading, error, products, page, pages } = productShop;
-console.log(products)
   const filter = useSelector((state) => state.filter);
   const { searchTerm, categories, brands, size, priceMax, priceMin } = filter;
 
@@ -146,7 +145,7 @@ console.log(products)
                   variant="outlined"
                   size="small"
                   label={`Keyword: ${searchTerm}`}
-                  onDelete={() => dispatch(removeSearchTerm())}
+                  onDelete={() => console.log('Heeli')}
                 />
               )}
               {priceMin && (

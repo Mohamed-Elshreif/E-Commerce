@@ -185,7 +185,6 @@ export const productShopSlice = createSlice({
     },
     [listShop.fulfilled]: (state, { payload }) => {
       const { page, pages, products, count } = payload.data;
-      console.log(payload)
       state.loading = false;
       state.products = products;
       state.page = page;
@@ -201,6 +200,7 @@ export const productShopSlice = createSlice({
       state.loading = true;
     },
     [filterListShop.fulfilled]: (state, { payload }) => {
+      state.loading = false;
       payload ? (state.products = payload) : (state.products =  state.tempProducts );
     },
     [filterListShop.rejected]: (state, { payload }) => {
