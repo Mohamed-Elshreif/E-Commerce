@@ -21,10 +21,11 @@ import {
   TableHead,
   TableRow,
 } from "@material-ui/core";
-import { getUserDetails, updateUserProfile } from "../../actions/userActions";
-import { listMyOrders } from "../../actions/orderActions";
-import { openSnackbar } from "../../actions/snackbarActions";
-import { USER_UPDATE_PROFILE_RESET } from "../../constants/userConstants";
+import updateProfile from '../../state/slices/updateProfile/async';
+import usersDetails from '../../state/slices/userDetails/async';
+import {listUserOrders} from '../../state/slices/orders/async'
+import { openSnackbar } from "../../state/slices/snackbar/index";
+import {userUpdateRest} from '../../state/slices/updateProfile/index'
 import { useForm, FormProvider } from "react-hook-form";
 import { VscEyeClosed, VscEye } from "react-icons/vsc";
 import { FaTimes } from "react-icons/fa";
@@ -61,9 +62,9 @@ const ProfileScreen = () => {
       navigate("/login");
     } else {
       if (!user || !user.name || success) {
-        dispatch({ type: USER_UPDATE_PROFILE_RESET });
-        dispatch(getUserDetails("profile"));
-        dispatch(listMyOrders());
+        dispatch(userUpdateRest());
+        dispatch(usersDetails({id:"profile"}));
+        dispatch(listUserOrders());
       } else {
         setValue("name", user.name);
         setValue("email", user.email);
@@ -74,13 +75,13 @@ const ProfileScreen = () => {
   useEffect(() => {
     if (success) {
       dispatch(
-        openSnackbar("Profile has been updated successfully", "success")
+        openSnackbar({message:"Profile has been updated successfully",variant: "success"})
       );
     }
   }, [dispatch, success]);
 
   const submitHandler = ({ name, email, password }) => {
-    dispatch(updateUserProfile({ id: user._id, name, email, password }));
+    dispatch(updateProfile({ id: user._id, name, email, password }));
   };
 
   return (
@@ -112,7 +113,7 @@ const ProfileScreen = () => {
               <>
                 <Box className={classes.profile}>
                   <StyledBadge
-                    overlap="circle"
+                    overlap="circular"
                     anchorOrigin={{
                       vertical: "bottom",
                       horizontal: "right",

@@ -19,6 +19,7 @@ import {
   ProductCreate,
   Shop,
   OrderList,
+  NotFound
 } from "../screens";
 
 export const router = createBrowserRouter([
@@ -77,9 +78,15 @@ export const router = createBrowserRouter([
           {
             path: "user/:id",
             element: <UserEdit />,
-          },
+          }
+         
         ],
       },
+      {
+        path: "*",
+        element: <NotFound/>
+      }
     ],
   },
+ 
 ]);

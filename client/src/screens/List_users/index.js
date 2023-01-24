@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { listUsers, deleteUser } from "../../actions/userActions";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import {
   Button,
@@ -13,7 +12,9 @@ import {
   useMediaQuery,
 } from "@material-ui/core";
 import { DataGrid } from "@material-ui/data-grid";
-import { openSnackbar } from "../../actions/snackbarActions";
+import getListUsers from '../../state/slices/admin/userList/async';
+import deleteUser from '../../state/slices/admin/userDelete/async';
+import { openSnackbar } from "../../state/slices/snackbar/index";
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import Meta from "../../components/Meta";
@@ -21,14 +22,13 @@ import Loader from "../../components/Loader";
 import Message from "../../components/Message";
 import { useStyles } from "./style";
 
-const UserListScreen = ({ history }) => {
+const UserListScreen = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const onMobile = useMediaQuery("(max-width:740px)");
-  const userList = useSelector((state) => state.userList);
-  let { loading, error, users = [] } = userList;
-  users = users.map((user) => ({ ...user, id: user._id }));
+  const { loading, error, users = [] } = useSelector((state) => state.userList);
+  const listUsers = users && users.map((user) => ({ ...user, id: user._id }));
 
   const { userInfo } = useSelector((state) => state.userLogin);
   const userDelete = useSelector((state) => state.userDelete);
@@ -77,7 +77,7 @@ const UserListScreen = ({ history }) => {
 
   useEffect(() => {
     if (userInfo && userInfo.isAdmin) {
-      dispatch(listUsers());
+      dispatch(getListUsers());
     } else {
       navigate("/login");
     }
@@ -85,13 +85,13 @@ const UserListScreen = ({ history }) => {
 
   useEffect(() => {
     if (successDelete) {
-      dispatch(openSnackbar("The user has been deleted", "success"));
+      dispatch(openSnackbar({message:"The user has been deleted",variant: "success"}));
     }
   }, [dispatch, successDelete]);
 
   const deleteHandler = (id) => {
     if (window.confirm("Are you sure to delete this user?")) {
-      dispatch(deleteUser(id));
+      dispatch(deleteUser({id}));
     }
   };
   return (
@@ -136,7 +136,7 @@ const UserListScreen = ({ history }) => {
             className={classes.users}
             elevation={0}
           >
-            <DataGrid rows={users} columns={columns} pageSize={10} autoHeight />
+            <DataGrid rows={listUsers} columns={columns} pageSize={10} autoHeight />
           </Grid>
         </Grid>
       )}

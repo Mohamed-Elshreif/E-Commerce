@@ -54,7 +54,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
  * @access  Public
  */
 const registerUser = asyncHandler(async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, password ,token} = req.body;
   const userExist = await User.findOne({ email });
 
   if (userExist) {
@@ -66,6 +66,7 @@ const registerUser = asyncHandler(async (req, res) => {
     name,
     email,
     password,
+    token
   });
 
   if (user) {
@@ -74,6 +75,7 @@ const registerUser = asyncHandler(async (req, res) => {
       name: user.name,
       email: user.email,
       isAdmin: user.isAdmin,
+      token:user.token
     });
   } else {
     res.status(400);

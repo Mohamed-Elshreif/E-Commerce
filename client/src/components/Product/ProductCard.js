@@ -11,7 +11,9 @@ import { RiShoppingBag3Fill } from "react-icons/ri";
 import Tooltip from "@material-ui/core/Tooltip";
 import ProductModalView from "./ProductModalView";
 import { Button, CardActionArea, Hidden, IconButton } from "@material-ui/core";
-import { addToCart, setOpenCartDrawer } from "../../actions/cartActions";
+import {addToCart} from '../../state/slices/cart/async';
+import {cartOpenDrawer} from '../../state/slices/cart/index';
+
 import { useDispatch } from "react-redux";
 import { useCartStyles } from "./style";
 
@@ -23,8 +25,8 @@ const ProductCard = (props) => {
 
   const handleAddToCart = (e, id) => {
     e.preventDefault();
-    dispatch(setOpenCartDrawer(true));
-    dispatch(addToCart(id, 1, "m"));
+    dispatch(cartOpenDrawer(true));
+    dispatch(addToCart({id:id , gty:1, size:"m"}));
   };
   const handleOpenQuickView = (e) => {
     e.preventDefault();

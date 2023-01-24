@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { IconButton, InputBase } from "@material-ui/core";
 import { IoSearchOutline } from "react-icons/io5";
-import { addSearchTerm } from "../../actions/filterActions";
+import { addSearchTerm } from "../../state/slices/filter";
 import { useStyles } from "./style";
 
 const SearchBox = (props) => {

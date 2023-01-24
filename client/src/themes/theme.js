@@ -1,4 +1,3 @@
-import { createTheme } from "@material-ui/core/styles";
 import {
   flexMixin,
   centerFlex,
@@ -7,9 +6,9 @@ import {
   breadcrumbs,
 } from "./mixins";
 
-const theme = createTheme({
+const getDesignTokens  = (mode) => ({
   palette: {
-    type: "dark",
+    type: mode,
   },
   typography: {
     fontFamily: ["Jost", "Poppins", "sans-serif"].join(","),
@@ -35,4 +34,4 @@ const theme = createTheme({
   },
 });
 
-export default theme;
+export default getDesignTokens;

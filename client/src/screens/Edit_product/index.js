@@ -4,12 +4,9 @@ import { Link as RouterLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Message from "../../components/Message";
 import Loader from "../../components/Loader";
-import { openSnackbar } from "../../actions/snackbarActions";
-import {
-  fetchProductDetails,
-  updateProduct,
-} from "../../actions/productActions";
-import { PRODUCT_UPDATE_RESET } from "../../constants/productConstants";
+import { listProductDetails } from "../../state/slices/productDetails/async";
+import { openSnackbar } from "../../state/slices/snackbar/index";
+import { updateProduct } from "../../state/slices/admin/productEdit/async";
 import {
   Typography,
   Paper,
@@ -69,7 +66,7 @@ const ProductEditScreen = ({ match, history }) => {
       history.push("/admin/productlist");
     } else {
       if (!product.name || product._id !== productId) {
-        dispatch(fetchProductDetails(productId));
+        dispatch(listProductDetails({id : productId}));
       } else {
         setName(product.name);
         setPrice(product.price);

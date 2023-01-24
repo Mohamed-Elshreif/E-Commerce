@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import clsx from "clsx";
-import logo from "../../assets/images/logo.png";
 import { ReactComponent as SearchIcon } from "../../assets/icons/search.svg";
 import { ReactComponent as CartIcon } from "../../assets/icons/cart.svg";
+import {useTheme} from '@material-ui/core/styles'
 import { Link } from "react-router-dom";
 import useScrollTrigger from "@material-ui/core/useScrollTrigger";
 import AppBar from "@material-ui/core/AppBar";
@@ -12,31 +12,34 @@ import Badge from "@material-ui/core/Badge";
 import MenuItem from "@material-ui/core/MenuItem";
 import MenuIcon from "@material-ui/icons/Menu";
 import CloseIcon from "@material-ui/icons/Close";
+import Brightness4Icon from '@material-ui/icons/Brightness4';
+import Brightness7Icon from '@material-ui/icons/Brightness7';
 import MenuList from "@material-ui/core/MenuList";
 import HeaderUser from "../HeaderUser";
 import SearchBox from "../SearchBox";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { Drawer, Hidden } from "@material-ui/core";
-import { setOpenCartDrawer } from "../../actions/cartActions";
+import {cartOpenDrawer} from '../../state/slices/cart/index'
+import {logout} from '../../state/slices/auth/index';
+import {changeTheme} from '../../state/slices/theme/index'
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../../actions/userActions";
 import { useStyles } from "./style";
+import Logo from "../logo";
 
 const Header = () => {
   const dispatch = useDispatch();
+  const {palette : {type}} = useTheme();
   const { cartItems } = useSelector((state) => state.cart);
   const { userInfo } = useSelector((state) => state.userLogin);
   const [mobile, setMobile] = useState(false);
   const [openSearchDrawer, setOpenSearchDrawer] = useState(false);
   const onMobile = useMediaQuery("(max-width:740px)");
-
   const classes = useStyles({ mobile });
   const trigger = useScrollTrigger({
     disableHysteresis: true,
     target: window ? window : undefined,
     threshold: 80,
   });
-
   const handleCloseDrawer = () => {
     setMobile(false);
   };
@@ -182,12 +185,10 @@ const Header = () => {
             </Drawer>
           )}
         </Toolbar>
-        <Link to="/" className={classes.logoWrapper}>
-          <img src={logo} alt="logo" className={classes.logo} />
-        </Link>
+       <Logo position='center'/>
         <div className={classes.sectionDesktop}>
           <IconButton onClick={() => setOpenSearchDrawer(true)}>
-            <SearchIcon height={22} width={22} />
+            <SearchIcon height={22} width={22} className={classes.iconSVG}/>
           </IconButton>
 
           <Drawer
@@ -201,7 +202,7 @@ const Header = () => {
             />
           </Drawer>
 
-          <IconButton onClick={() => dispatch(setOpenCartDrawer(true))}>
+          <IconButton onClick={() => dispatch(cartOpenDrawer(true))}>
             <Badge
               badgeContent={cartItems.length}
               color="secondary"
@@ -209,6 +210,9 @@ const Header = () => {
             >
               <CartIcon />
             </Badge>
+          </IconButton>
+          <IconButton onClick={() => dispatch(changeTheme('light'))}>
+              {type ==='light' ? <Brightness4Icon/> : <Brightness7Icon />}
           </IconButton>
           <Hidden smDown>
             <HeaderUser />

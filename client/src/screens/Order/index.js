@@ -4,16 +4,11 @@ import Message from "../../components/Message";
 import Loader from "../../components/Loader";
 import { PayPalButton } from "react-paypal-button-v2";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getOrderById,
-  payOrder,
-  deliverOrder,
-} from "../../actions/orderActions";
+import { getOrderDetails, payOrder } from "../../state/slices/orders/async";
+import { deliverOrder } from "../../state/slices/admin/allOrders/async";
+import { orderDeliverRest } from "../../state/slices/admin/allOrders/index";
+import { orderPayRest } from "../../state/slices/orders/index";
 import { Link as RouterLink, useParams, useNavigate } from "react-router-dom";
-import {
-  ORDER_DELIVER_RESET,
-  ORDER_PAY_RESET,
-} from "../../constants/orderConstants";
 import {
   Container,
   Grid,
@@ -96,9 +91,9 @@ const OrderScreen = () => {
     };
 
     if (!order || successPay || successDeliver || order._id !== id) {
-      dispatch({ type: ORDER_PAY_RESET });
-      dispatch({ type: ORDER_DELIVER_RESET });
-      dispatch(getOrderById(id));
+      dispatch(orderPayRest());
+      dispatch(orderDeliverRest());
+      dispatch(getOrderDetails({ id }));
     } else if (!order.isPaid) {
       if (!window.paypal) {
         addPayPalScript();
@@ -110,11 +105,11 @@ const OrderScreen = () => {
 
   const successPaymentHandler = (paymentResult) => {
     console.log(paymentResult);
-    dispatch(payOrder(id, paymentResult));
+    dispatch(payOrder({ orderId, paymentResult }));
   };
 
   const deliverHandler = () => {
-    dispatch(deliverOrder(order));
+    dispatch(deliverOrder({ orderId }));
   };
 
   return loading ? (

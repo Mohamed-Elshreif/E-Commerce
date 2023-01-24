@@ -3,12 +3,11 @@ import queryString from "query-string";
 import Message from "../../components/Message";
 import Loader from "../../components/Loader";
 import { useDispatch, useSelector } from "react-redux";
-import { register } from "../../actions/userActions";
+import registerUser from '../../state/slices/register/async';
 import { Link as RouterLink, useLocation, useNavigate } from "react-router-dom";
-import { ThemeProvider } from "@material-ui/core/styles";
 import { useForm, FormProvider } from "react-hook-form";
 import { ReactComponent as LoginImage } from "../../assets/images/login-illu.svg";
-import { USER_REGISTER_RESET } from "../../constants/userConstants";
+import {logout} from '../../state/slices/auth/index';
 import logo from "../../assets/images/logo.png";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
@@ -23,6 +22,7 @@ import InputController from "../../components/InputController";
 import { VscEyeClosed, VscEye } from "react-icons/vsc";
 import { BiArrowBack } from "react-icons/bi";
 import { useStyles } from "./style";
+import AuthThirdParty from "../../components/authThirdParty";
 
 const RegisterScreen = () => {
   const classes = useStyles();
@@ -42,12 +42,12 @@ const RegisterScreen = () => {
   useEffect(() => {
     if (userInfo) {
       navigate(`/login?redirect=${redirect}`);
-      dispatch({ type: USER_REGISTER_RESET });
+      dispatch(logout());
     }
   }, [dispatch, navigate, userInfo, redirect]);
 
   const submitHandler = ({ name, email, password }) => {
-    dispatch(register(name, email, password));
+    dispatch(registerUser({name, email, password}));
   };
 
   return (
@@ -146,6 +146,7 @@ const RegisterScreen = () => {
                 Login
               </Link>
             </Box>
+            <AuthThirdParty/>
             {loading && <Loader my={0} />}
             {error && <Message mt={0}>{error}</Message>}
           </Box>

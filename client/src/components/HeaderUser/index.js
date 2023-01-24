@@ -8,7 +8,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import MenuList from "@material-ui/core/MenuList";
 import { ReactComponent as UserIcon } from "../../assets/icons/user.svg";
 import { Link as RouterLink } from "react-router-dom";
-import { logout } from "../../actions/userActions";
+import {logout} from '../../state/slices/auth/index';
 import { useDispatch, useSelector } from "react-redux";
 import { FiLogIn } from "react-icons/fi";
 import { useStyles } from "./style";
@@ -49,7 +49,7 @@ export default function HeaderUser() {
         {userInfo ? (
           <>
             <IconButton ref={anchorRef} onClick={handleToggle}>
-              <UserIcon height={22} className={classes.icon} />
+              <UserIcon height={26} width={26} className={classes.iconSVG} />
             </IconButton>
             <Popper
               open={open}

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { listOrders } from "../../actions/orderActions";
+import {listAllOrders} from '../../state/slices/admin/allOrders/async'
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import {
   Button,
@@ -85,7 +85,7 @@ const OrderListScreen = () => {
 
   useEffect(() => {
     if (userInfo && userInfo.isAdmin) {
-      dispatch(listOrders());
+      dispatch(listAllOrders());
     } else {
       navigate("/login");
     }

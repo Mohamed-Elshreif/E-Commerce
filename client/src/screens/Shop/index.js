@@ -6,10 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Message from "../../components/Message";
 import Loader from "../../components/Loader";
 import ProductFilterBar from "../../components/Product/ProductFilterBar";
-import {
-  listShopProduct,
-  filterListShopProduct,
-} from "../../actions/productActions";
+import {listShop,filterListShop} from '../../state/slices/products/async';
 import {
   removeSearchTerm,
   removeRangePrice,
@@ -17,7 +14,7 @@ import {
   removeSize,
   removeBrand,
   filterClearAll,
-} from "../../actions/filterActions";
+} from "../../state/slices/filter/index";
 import {
   Container,
   Link,
@@ -51,10 +48,8 @@ const ShopScreen = () => {
 
   const query = queryString.parse(location.search);
   let { sort_by = "default", page: pageNumber = 1 } = query;
-  console.log(query);
   const productShop = useSelector((state) => state.productShop);
   const { loading, error, products, page, pages } = productShop;
-
   const filter = useSelector((state) => state.filter);
   const { searchTerm, categories, brands, size, priceMax, priceMin } = filter;
 
@@ -63,7 +58,7 @@ const ShopScreen = () => {
   };
 
   useEffect(() => {
-    dispatch(listShopProduct(sort_by, pageNumber, searchTerm));
+    dispatch(listShop({type:sort_by, pageNumber, keyword : searchTerm}));
   }, [dispatch, sort_by, pageNumber, searchTerm]);
 
   useEffect(() => {
@@ -71,7 +66,7 @@ const ShopScreen = () => {
   }, [pageNumber]);
 
   useEffect(() => {
-    dispatch(filterListShopProduct());
+    dispatch(filterListShop());
   }, [dispatch, filter, page]);
 
   useEffect(() => {
@@ -150,7 +145,7 @@ const ShopScreen = () => {
                   variant="outlined"
                   size="small"
                   label={`Keyword: ${searchTerm}`}
-                  onDelete={() => dispatch(removeSearchTerm())}
+                  onDelete={() => console.log('Heeli')}
                 />
               )}
               {priceMin && (

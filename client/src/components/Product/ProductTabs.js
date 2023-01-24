@@ -2,10 +2,10 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import {
-  listProducts,
-  listLatestProducts,
-  listSaleProducts,
-} from "../../actions/productActions";
+  getProducts,
+  listLatest,
+  listSale,
+} from "../../state/slices/products/async";
 import PropTypes from "prop-types";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import AppBar from "@material-ui/core/AppBar";
@@ -79,15 +79,15 @@ const ProductTabs = () => {
   } = productList;
 
   useEffect(() => {
-    dispatch(listLatestProducts());
+    dispatch(listLatest());
   }, [dispatch]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
     if (newValue === 1 && !productsSale.length) {
-      dispatch(listSaleProducts());
+      dispatch(listSale());
     } else if (newValue === 2 && !productsList.length) {
-      dispatch(listProducts());
+      dispatch(getProducts({}));
     }
   };
 

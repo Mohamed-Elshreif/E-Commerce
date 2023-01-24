@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { createOrder } from "../../actions/orderActions";
-import { openSnackbar } from "../../actions/snackbarActions";
+import { openSnackbar } from "../../state/slices/snackbar/index";
+import {createOrder} from '../../state/slices/orders/async';
+
 import {
   Button,
   Container,
@@ -40,7 +41,7 @@ const PlaceOrderScreen = () => {
   const classes = useStyles();
   const navigate = useNavigate();
   const cart = useSelector((state) => state.cart);
-
+console.log(cart)
   if (!cart.shippingAddress.address) {
     navigate("/shipping");
   } else if (!cart.paymentMethod) {

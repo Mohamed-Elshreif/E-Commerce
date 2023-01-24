@@ -14,14 +14,14 @@ import {
 } from "@material-ui/core";
 import { ReactComponent as Banner } from "../../assets/images/shipping.svg";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
-import { saveShippingAddress } from "../../actions/cartActions";
+import {addShippingAddress} from '../../state/slices/cart/async'
 import { useForm, FormProvider, Controller } from "react-hook-form";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import CheckoutSteps from "../../components/CheckoutSteps";
 import Meta from "../../components/Meta";
 import { Input, useStyles } from "./style";
 
-const ShippingScreen = ({ history }) => {
+const ShippingScreen = () => {
   const classes = useStyles();
   const methods = useForm();
   const navigate = useNavigate();
@@ -33,7 +33,7 @@ const ShippingScreen = ({ history }) => {
   const dispatch = useDispatch();
 
   const onSubmit = ({ address, city, postalCode, country }) => {
-    dispatch(saveShippingAddress({ address, city, postalCode, country }));
+    dispatch(addShippingAddress({ address, city, postalCode, country }));
     navigate("/payment");
   };
 

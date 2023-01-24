@@ -1,21 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
-import { RouterProvider } from "react-router-dom";
-import store from "./store.js";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import { ThemeProvider } from "@material-ui/core/styles";
+import store from "./state/store";
 
-import theme from "./themes/theme";
 import "./assets/scss/style.scss";
-import { router } from "./Routers/index.js";
+import App from "./App.js";
 
 ReactDOM.render(
   <Provider store={store}>
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <RouterProvider router={router} />
-    </ThemeProvider>
+    <App/>
   </Provider>,
   document.getElementById("root")
 );

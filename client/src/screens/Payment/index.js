@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CheckoutSteps from "../../components/CheckoutSteps";
-import { savePaymentMethod } from "../../actions/cartActions";
+import {addPaymentMethod} from '../../state/slices/cart/async';
 import Meta from "../../components/Meta";
 import {
   Button,
@@ -24,7 +24,7 @@ import { useForm, FormProvider, Controller } from "react-hook-form";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import { useStyles } from "./style";
 
-const PaymentScreen = ({ history }) => {
+const PaymentScreen = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const methods = useForm();
@@ -39,7 +39,7 @@ const PaymentScreen = ({ history }) => {
   }
 
   const submitHandler = ({ paymentMethod }) => {
-    dispatch(savePaymentMethod(paymentMethod));
+    dispatch(addPaymentMethod(paymentMethod));
     navigate("/placeorder");
   };
 

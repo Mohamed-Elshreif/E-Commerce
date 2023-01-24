@@ -5,7 +5,7 @@ import Slide from "@material-ui/core/Slide";
 import Link from "@material-ui/core/Link";
 import { Link as RouterLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { clearSnackbar } from "../../actions/snackbarActions";
+import { clearSnackbar } from "../../state/slices/snackbar";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;

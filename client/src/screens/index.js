@@ -15,3 +15,4 @@ export { default as ProductEdit } from "./Edit_product";
 export { default as ProductCreate } from "./Create_Product";
 export { default as Shop } from "./Shop";
 export { default as OrderList } from "./List_orders";
+export {default as NotFound} from './404'

@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchProductDetails } from "../../actions/productActions.js";
-import { Link as RouterLink, useNavigate, useParams } from "react-router-dom";
+import {listProductDetails} from '../../state/slices/productDetails/async'
+import { Link as RouterLink, useParams } from "react-router-dom";
 import { useForm, Controller } from "react-hook-form";
-import { addToCart } from "../../actions/cartActions";
-import { openSnackbar } from "../../actions/snackbarActions";
+import {addToCart} from '../../state/slices/cart/async'
+import { openSnackbar } from "../../state/slices/snackbar/index";
 import Meta from "../../components/Meta";
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import Link from "@material-ui/core/Link";
@@ -50,18 +50,19 @@ const ProductScreen = () => {
   const classes = useStyles(product);
 
   const addToCartHandler = ({ qty, size }) => {
-    dispatch(addToCart(id, qty, size));
+    const link = {
+      hasLink: true,
+      to: "/cart",
+      text: "View Cart",
+    }
+    dispatch(addToCart({id, qty, size}));
     dispatch(
-      openSnackbar("The product has been added to cart!", "success", {
-        hasLink: true,
-        to: "/cart",
-        text: "View Cart",
-      })
+      openSnackbar({message:"The product has been added to cart!", variant:"success", link})
     );
   };
 
   useEffect(() => {
-    dispatch(fetchProductDetails(id));
+    dispatch(listProductDetails({id}));
   }, [dispatch, id]);
 
   useEffect(() => {

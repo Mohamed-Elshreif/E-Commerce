@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 import queryString from "query-string";
 import { Link as RouterLink, useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "../../actions/userActions";
-import { ThemeProvider } from "@material-ui/core/styles";
+import loginUser from '../../state/slices/auth/async';
 import { ReactComponent as LoginImage } from "../../assets/images/login-illu.svg";
 import logo from "../../assets/images/logo.png";
 import Paper from "@material-ui/core/Paper";
@@ -21,7 +20,8 @@ import InputController from "../../components/InputController";
 import { useForm, FormProvider } from "react-hook-form";
 import { VscEyeClosed, VscEye } from "react-icons/vsc";
 import { BiArrowBack } from "react-icons/bi";
-import { theme, useStyles } from "./style";
+import { useStyles } from "./style";
+import AuthThirdParty from "../../components/authThirdParty";
 
 const LoginScreen = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -47,7 +47,7 @@ const LoginScreen = () => {
   }, [navigate, userInfo, redirect]);
 
   const submitHandler = ({ email, password }) => {
-    dispatch(login(email, password));
+    dispatch(loginUser({email, password}));
   };
 
   return (
@@ -135,6 +135,7 @@ const LoginScreen = () => {
                 Create Account
               </Link>
             </Box>
+             <AuthThirdParty/>
             {loading && <Loader my={0} />}
             {error && <Message mt={0}>{error}</Message>}
           </Box>
