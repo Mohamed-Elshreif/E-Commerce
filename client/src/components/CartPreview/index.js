@@ -19,7 +19,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import { useDispatch, useSelector } from "react-redux";
 import {removeFromCart} from '../../state/slices/cart/async'
 import {cartOpenDrawer} from '../../state/slices/cart'
-import emptyGif from "../../assets/images/cart.webp";
+import emptyGif from "../../assets/images/cartEmpty.png";
 import { Link as LinkRouter } from "react-router-dom";
 import { useStyles } from "./style";
 
