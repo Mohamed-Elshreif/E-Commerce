@@ -1,27 +1,19 @@
 {
   "name": "cybershop-ecommerce",
   "version": "1.0.0",
-  "description": "CyberShop",
-  "main": "server.js",
+  "description": "",
+  "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "node server",
-    "server": "nodemon server",
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "start": "node index",
+    "server": "nodemon index",
+    "dev": "concurrently \"npm run index\" \"npm run client\"",
     "data:import": "node backend/seeder",
     "data:destroy": "node backend/seeder -d",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/phongduybui/cybershop-ecommerce.git"
-  },
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/phongduybui/cybershop-ecommerce/issues"
-  },
-  "homepage": "https://github.com/phongduybui/cybershop-ecommerce#readme",
   "dependencies": {
     "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",
