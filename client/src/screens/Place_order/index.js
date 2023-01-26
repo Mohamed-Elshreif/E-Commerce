@@ -2,17 +2,15 @@ import React, { useEffect } from "react";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { openSnackbar } from "../../state/slices/snackbar/index";
-import {createOrder} from '../../state/slices/orders/async';
+import {createOrder,calculateOrber} from '../../state/slices/orders/async';
 
 import {
-  Button,
   Container,
   Grid,
   Paper,
   Typography,
   Breadcrumbs,
   Link,
-  Divider,
   ListItemText,
   ListItem,
   List,
@@ -30,64 +28,36 @@ import {
 } from "@material-ui/core";
 import { GrLocation, GrCreditCard, GrProjects } from "react-icons/gr";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
-import Message from "../../components/Message";
 import CheckoutSteps from "../../components/CheckoutSteps";
 import Meta from "../../components/Meta";
 import paypalImage from "../../assets/images/paypal.png";
 import { useStyles } from "./style";
+import OrderSummary from "./orderSummary";
 
 const PlaceOrderScreen = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const navigate = useNavigate();
   const cart = useSelector((state) => state.cart);
-console.log(cart)
+  const orderCreate = useSelector((state) => state.orderCreate);
+  const { order, success, error } = orderCreate;
+
   if (!cart.shippingAddress.address) {
     navigate("/shipping");
   } else if (!cart.paymentMethod) {
     navigate("/payment");
   }
-  //   Calculate prices
-  const addDecimals = (num) => {
-    return (Math.round(num * 100) / 100).toFixed(2);
-  };
-
   const address = Object.values(cart.shippingAddress).join(", ");
-
-  cart.itemsPrice = addDecimals(
-    cart.cartItems.reduce((acc, item) => acc + item.priceSale * item.qty, 0)
-  );
-  cart.shippingPrice = addDecimals(cart.itemsPrice > 100 ? 0 : 100);
-  cart.taxPrice = addDecimals(Number((0.15 * cart.itemsPrice).toFixed(2)));
-  cart.totalPrice = (
-    Number(cart.itemsPrice) +
-    Number(cart.shippingPrice) +
-    Number(cart.taxPrice)
-  ).toFixed(2);
-
-  const orderCreate = useSelector((state) => state.orderCreate);
-  const { order, success, error } = orderCreate;
-
   useEffect(() => {
     if (success) {
       navigate(`/order/${order._id}`);
       dispatch(openSnackbar("Order has been created successfully", "success"));
     }
-    // eslint-disable-next-line
+    dispatch(calculateOrber())
   }, [navigate, success]);
 
   const placeOrderHandler = () => {
-    dispatch(
-      createOrder({
-        orderItems: cart.cartItems,
-        shippingAddress: cart.shippingAddress,
-        paymentMethod: cart.paymentMethod,
-        itemsPrice: cart.itemsPrice,
-        shippingPrice: cart.shippingPrice,
-        taxPrice: cart.taxPrice,
-        totalPrice: cart.totalPrice,
-      })
-    );
+    dispatch(createOrder());
   };
 
   return (
@@ -219,51 +189,7 @@ console.log(cart)
               </ListItem>
             </List>
           </Grid>
-          <Grid item xs={12} lg={4}>
-            <Paper elevation={0} className={classes.cartTotalWrapper}>
-              <Typography variant="h4" style={{ fontSize: 23 }}>
-                Order Summary
-              </Typography>
-              <Divider className={classes.divider} />
-              <List style={{ padding: "10px 20px 20px" }}>
-                <ListItem divider disableGutters>
-                  <ListItemText primary="Items:" />
-                  <Typography>${cart.itemsPrice}</Typography>
-                </ListItem>
-                <ListItem divider disableGutters>
-                  <ListItemText primary="Shipping:" />
-                  <Typography>${cart.shippingPrice}</Typography>
-                </ListItem>
-                <ListItem divider disableGutters>
-                  <ListItemText primary="Tax:" />
-                  <Typography>${cart.taxPrice}</Typography>
-                </ListItem>
-                <ListItem disableGutters>
-                  <ListItemText primary="Total:" />
-                  <Typography color="secondary">${cart.totalPrice}</Typography>
-                </ListItem>
-              </List>
-              {error && <Message mb={16}>{error}</Message>}
-              <Button
-                variant="contained"
-                color="secondary"
-                fullWidth
-                disabled={cart.cartItems.length === 0}
-                onClick={placeOrderHandler}
-              >
-                Place Order
-              </Button>
-              <Button
-                variant="contained"
-                component={RouterLink}
-                to="/payment"
-                fullWidth
-                style={{ marginTop: 16 }}
-              >
-                Back
-              </Button>
-            </Paper>
-          </Grid>
+        <OrderSummary error={error} placeOrderHandler={placeOrderHandler}/>
         </Grid>
       </Paper>
     </Container>

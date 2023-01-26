@@ -21,7 +21,7 @@ const shippingAddress = localStorage.getItem("shippingAddress")
 
 // GET payment Method from local Storage
 const paymentMethod = localStorage.getItem("paymentMethod")
-  ? JSON.parse(localStorage.getItem("paymentMethod")).method
+  ? localStorage.getItem("paymentMethod")
   : "";
 
 const cartSlice = createSlice({

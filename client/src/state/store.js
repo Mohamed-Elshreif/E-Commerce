@@ -30,7 +30,8 @@ import {
   snackBar,
   productShop,
   filter,
-  theme
+  theme,
+  calcOrder
 } from "./slices/index";
 
 const storeToolkit = configureStore({
@@ -65,36 +66,9 @@ const storeToolkit = configureStore({
     cartOpenDrawer: cartDrawer,
     snackbarState: snackBar,
     filter: filter,
-    theme:theme
+    theme:theme,
+    calcOrder:calcOrder
   },
   devTools: process.env.NODE_ENV !== "production",
 });
-// productShop /
-//   productList /
-//   productDetails /
-//   productDelete /
-//   productCreate /
-//   productUpdate /
-//   productReviewCreate;
-// productTopRated;
-// productLatest;
-// productSale;
-// productRelated;
-// productSortByPrice / cart;
-// cartOpenDrawer /
-//   userLogin /
-//   userRegister /
-//   userDetails /
-//   userUpdateProfile /
-//   userList /
-//   userDelete /
-//   userUpdate /
-//   orderCreate /
-//   orderDetails /
-//   orderPay /
-//   orderDeliver /
-//   orderListMy /
-//   orderList;
-// snackbarState;
-// filter;
 export default storeToolkit;

@@ -149,7 +149,7 @@ const ProductListScreen = () => {
             <Typography
               variant="h5"
               component="h1"
-              style={{ textAlign: "center" }}
+              style={{ textAlign: "center",marginBottom:'30px' }}
             >
               Product Management
             </Typography>
@@ -188,7 +188,7 @@ const ProductListScreen = () => {
               components={{
                 Toolbar: () => (
                   <GridToolbarContainer>
-                    <GridToolbarExport />
+                    <GridToolbarExport color='secondary'/>
                   </GridToolbarContainer>
                 ),
               }}

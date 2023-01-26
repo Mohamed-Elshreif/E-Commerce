@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, {memo, useState, useEffect } from "react";
 import clsx from "clsx";
 import {
   Typography,
@@ -242,4 +242,4 @@ const ProductFilterBar = ({ products, sizeSelected, filter }) => {
   );
 };
 
-export default ProductFilterBar;
+export default memo(ProductFilterBar);

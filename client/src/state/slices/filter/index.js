@@ -43,7 +43,12 @@ const filterSlice = createSlice({
       state.brands = state.brands.filter((brand) => brand !== payload);
     },
     filterClearAll: (state) => {
-      state = {};
+      state.searchTerm = '';
+      state.categories = [];
+      state.brands = [];
+      state.sizes = [];
+      state.priceMax = null;
+      state.priceMin = null;
     },
   },
 });

@@ -145,7 +145,7 @@ const ShopScreen = () => {
                   variant="outlined"
                   size="small"
                   label={`Keyword: ${searchTerm}`}
-                  onDelete={() => console.log('Heeli')}
+                  onDelete={() => dispatch(removeSearchTerm())}
                 />
               )}
               {priceMin && (
@@ -194,58 +194,59 @@ const ShopScreen = () => {
           </Box>
           {loading ? (
             <Loader />
-          ) : error ? (
-            <Message>{error}</Message>
-          ) : (
+          ) : !error ? (
             <Grid container spacing={2}>
-              {products.length !== 0 ? (
-                products.map((product) => (
-                  <Grid
-                    item
-                    xs={activeLayout === "fewCol" ? 12 : 6}
-                    sm={activeLayout === "fewCol" ? 6 : 4}
-                    lg={activeLayout === "fewCol" ? 4 : 3}
-                    key={product._id}
-                  >
-                    <ProductCard {...product} />
-                  </Grid>
-                ))
-              ) : (
-                <Grid item xs={12}>
-                  <Message severity="info" mt={0}>
-                    No product found.{" "}
-                    <Link
-                      component={RouterLink}
-                      to={`shop?sort_by=${sort_by}&page=1`}
-                    >
-                      Back
-                    </Link>
-                    {` or `}
-                    <Link onClick={() => dispatch(filterClearAll())}>
-                      Clear all filter
-                    </Link>
-                  </Message>
+            {products.length !== 0 ? (
+              products.map((product) => (
+                <Grid
+                  item
+                  xs={activeLayout === "fewCol" ? 12 : 6}
+                  sm={activeLayout === "fewCol" ? 6 : 4}
+                  lg={activeLayout === "fewCol" ? 4 : 3}
+                  key={product._id}
+                >
+                  <ProductCard {...product} />
                 </Grid>
-              )}
-              {pages > 1 && (
-                <Pagination
-                  className={classes.pagination}
-                  page={page}
-                  count={pages}
-                  renderItem={(item) => (
-                    <PaginationItem
-                      component={RouterLink}
-                      to={`/shop${
-                        item.page === 0
-                          ? ""
-                          : `?sort_by=${sort_by}&page=${item.page}`
-                      }`}
-                      {...item}
-                    />
-                  )}
-                />
-              )}
-            </Grid>
+              ))
+            ) : (
+              <Grid item xs={12}>
+                <Message severity="info" mt={0}>
+                  No product found.{" "}
+                  <Link
+                  style={{cursor:'pointer'}}
+                    component={RouterLink}
+                    to={`shop?sort_by=${sort_by}&page=1`}
+                  >
+                    Back
+                  </Link>
+                  {` or `}
+                  <Link onClick={() => dispatch(filterClearAll())} style={{cursor:'pointer'}}>
+                    Clear all filter
+                  </Link>
+                </Message>
+              </Grid>
+            )}
+            {pages > 1 && (
+              <Pagination
+                className={classes.pagination}
+                page={page}
+                count={pages}
+                renderItem={(item) => (
+                  <PaginationItem
+                    component={RouterLink}
+                    to={`/shop${
+                      item.page === 0
+                        ? ""
+                        : `?sort_by=${sort_by}&page=${item.page}`
+                    }`}
+                    {...item}
+                  />
+                )}
+              />
+            )}
+          </Grid>
+          ) : (
+            <Message>{error}</Message>
           )}
         </Grid>
       </Grid>

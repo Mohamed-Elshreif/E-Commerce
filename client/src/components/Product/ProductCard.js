@@ -3,7 +3,6 @@ import { Link as RouterLink } from "react-router-dom";
 import clsx from "clsx";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 import AddShoppingCartOutlinedIcon from "@material-ui/icons/AddShoppingCartOutlined";
 import VisibilityOutlinedIcon from "@material-ui/icons/VisibilityOutlined";
@@ -11,9 +10,9 @@ import { RiShoppingBag3Fill } from "react-icons/ri";
 import Tooltip from "@material-ui/core/Tooltip";
 import ProductModalView from "./ProductModalView";
 import { Button, CardActionArea, Hidden, IconButton } from "@material-ui/core";
-import {addToCart} from '../../state/slices/cart/async';
-import {cartOpenDrawer} from '../../state/slices/cart/index';
-
+import { addToCart } from "../../state/slices/cart/async";
+import { cartOpenDrawer } from "../../state/slices/cart/index";
+import { LazyLoadImage,LazyLoadComponent  } from 'react-lazy-load-image-component';
 import { useDispatch } from "react-redux";
 import { useCartStyles } from "./style";
 
@@ -25,8 +24,8 @@ const ProductCard = (props) => {
 
   const handleAddToCart = (e, id) => {
     e.preventDefault();
+    dispatch(addToCart({ id: id, gty: 1, size: "m" }));
     dispatch(cartOpenDrawer(true));
-    dispatch(addToCart({id:id , gty:1, size:"m"}));
   };
   const handleOpenQuickView = (e) => {
     e.preventDefault();
@@ -34,7 +33,7 @@ const ProductCard = (props) => {
   };
 
   return (
-    <>
+    <LazyLoadComponent >
       <Card className={classes.root}>
         <CardActionArea component={RouterLink} to={`/product/${_id}`}>
           <div className={classes.mediaWrapper}>
@@ -54,15 +53,14 @@ const ProductCard = (props) => {
                 </Tooltip>
               </div>
             </Hidden>
-
-            <CardMedia
+            <LazyLoadImage
               className={classes.media}
-              component={"img"}
+              alt={name}
               src={images && images[1]}
             />
-            <CardMedia
+            <LazyLoadImage
               className={clsx(classes.media, classes.mediaFront)}
-              component={"img"}
+              alt={name}
               src={images && images[0]}
             />
           </div>
@@ -102,9 +100,8 @@ const ProductCard = (props) => {
                   <Button
                     onClick={(e) => handleAddToCart(e, _id)}
                     color="secondary"
-                    className={classes.cartMobile}
                     startIcon={<RiShoppingBag3Fill />}
-                    style={{ whiteSpace: "nowrap" }}
+                    style={{ whiteSpace: "nowrap"}}
                   >
                     Add to Cart
                   </Button>
@@ -119,7 +116,7 @@ const ProductCard = (props) => {
         openModal={openModal}
         setOpenModal={setOpenModal}
       />
-    </>
+    </LazyLoadComponent>
   );
 };
 

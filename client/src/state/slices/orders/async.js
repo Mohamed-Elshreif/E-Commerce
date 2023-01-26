@@ -3,21 +3,20 @@ import axios from "axios";
 import { errors } from "../utilites/errorhandlers";
 import { config } from "../utilites/configHeader";
 
-const API =process.env.REACT_APP_API_URL
+const API = process.env.REACT_APP_API_URL;
 
 export const createOrder = createAsyncThunk(
   " createOrder/createOrder",
-  async (arg, thunkAPI) => {
+  async (_, thunkAPI) => {
     const { rejectWithValue, getState } = thunkAPI;
     try {
-      const { order } = arg;
       const {
-        userLogin: { userInfo },
+        userLogin: { userInfo },calcOrder:{items}
       } = getState();
       const token = userInfo && userInfo.token;
       const { data } = await axios.post(
         `${API}/api/orders`,
-        order,
+        items,
         config(token)
       );
       localStorage.removeItem("cartItems");
@@ -30,7 +29,7 @@ export const createOrder = createAsyncThunk(
 
 // Order Details
 export const getOrderDetails = createAsyncThunk(
-  "products/getOrderDetails",
+  "orderDetails/getOrderDetails",
   async (arg, thunkAPI) => {
     const { rejectWithValue, getState } = thunkAPI;
     try {
@@ -53,7 +52,7 @@ export const getOrderDetails = createAsyncThunk(
 
 //   PAY ORDER AND UPDATE ORDER TO PAID
 export const payOrder = createAsyncThunk(
-  "products/payOrder",
+  "orderPay/payOrder",
   async (arg, thunkAPI) => {
     const { rejectWithValue, getState } = thunkAPI;
     try {
@@ -76,7 +75,7 @@ export const payOrder = createAsyncThunk(
 
 ///    LIST MY ORDERS (PARTICULAR USER)    ///
 export const listUserOrders = createAsyncThunk(
-  "products/listUserOrders",
+  "listUserOrders/listUserOrders",
   async (_, thunkAPI) => {
     const { rejectWithValue, getState } = thunkAPI;
     try {
@@ -91,6 +90,41 @@ export const listUserOrders = createAsyncThunk(
       return data;
     } catch (error) {
       return rejectWithValue(errors(error));
+    }
+  }
+);
+
+export const calculateOrber = createAsyncThunk(
+  "calcOrderSlice/calculateOrber",
+  async (_, thunkAPI) => {
+    const { getState, rejectWithValue } = thunkAPI;
+    try {
+      const { cart } = getState();
+      const addDecimals = (num) => {
+        return (Math.round(num * 100) / 100).toFixed(2);
+      };
+      const itemsPrice = addDecimals(
+        cart.cartItems.reduce((acc, item) => acc + item.priceSale * item.qty, 0)
+      );
+      const shippingPrice = addDecimals(itemsPrice > 100 ? 0 : 100);
+      const taxPrice = addDecimals(Number((0.15 * itemsPrice).toFixed(2)));
+      const totalPrice = (
+        Number(itemsPrice) +
+        Number(shippingPrice) +
+        Number(taxPrice)
+      ).toFixed(2);
+      const order = {
+        orderItems: cart.cartItems,
+        shippingAddress: cart.shippingAddress,
+        paymentMethod: cart.paymentMethod,
+        itemsPrice: itemsPrice,
+        shippingPrice: shippingPrice,
+        taxPrice: taxPrice,
+        totalPrice: totalPrice,
+      };
+      return order;
+    } catch (err) {
+      return rejectWithValue(errors(err));
     }
   }
 );

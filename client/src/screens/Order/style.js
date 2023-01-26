@@ -26,7 +26,7 @@ export const useStyles = makeStyles((theme) => ({
       paddingLeft: 0,
     },
     "& .MuiTableCell-head": {
-      color: "rgba(0, 0, 0, 0.54)",
+      color: theme.palette.text.primary,
       fontWeight: 400,
     },
   },
@@ -42,7 +42,7 @@ export const useStyles = makeStyles((theme) => ({
     marginTop: 22,
     padding: 20,
     fontSize: 16,
-    backgroundColor: "#F4F4F4",
+    backgroundColor: theme.palette.background.paper,
   },
   cartTotal: {
     fontSize: 18,
@@ -60,4 +60,10 @@ export const useStyles = makeStyles((theme) => ({
   itemName: {
     ...theme.mixins.customize.textClamp(2),
   },
+  icon: {
+    "& path":{  stroke: theme.palette.secondary.main}
+  },
+  cell:{
+    color : theme.palette.text.primary
+  }
 }));

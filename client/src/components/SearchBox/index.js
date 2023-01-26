@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { IconButton, InputBase } from "@material-ui/core";
@@ -15,28 +15,27 @@ const SearchBox = (props) => {
   const { searchTerm } = useSelector((state) => state.filter);
 
   const handleInputChange = (e) => {
-    setKeyword(e.target.value);
+    setKeyword(e.target.value)
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (keyword) {
-      dispatch(addSearchTerm(keyword));
-      navigate("/shop");
-      props.setOpenSearchDrawer(false);
+        dispatch(addSearchTerm(keyword));
+        navigate("/shop");
+        props.setOpenSearchDrawer(false);
     }
-  };
+  }
 
   useEffect(() => {
     const timerId = setTimeout(() => {
       setDebouncedKeyword(keyword);
-    }, 500);
-
+    }, 2000);
     return () => clearTimeout(timerId);
   }, [keyword]);
 
   useEffect(() => {
-    if (debouncedKeyword) {
+    if (debouncedKeyword.trim()) {
       dispatch(addSearchTerm(debouncedKeyword));
     }
   }, [dispatch, debouncedKeyword]);

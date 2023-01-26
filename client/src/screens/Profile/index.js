@@ -118,6 +118,7 @@ const ProfileScreen = () => {
                       vertical: "bottom",
                       horizontal: "right",
                     }}
+                    
                     variant="dot"
                   >
                     <Avatar
@@ -125,10 +126,10 @@ const ProfileScreen = () => {
                       className={classes.largeAvatar}
                     />
                   </StyledBadge>
-                  <Typography style={{ marginTop: 32 }}>{user.name}</Typography>
+                  <Typography style={{ marginTop: 32 }}  style={{ color: "rgba(0, 0, 0)" }}>{user.name}</Typography>
                   <Typography
                     variant="caption"
-                    style={{ color: "rgba(0, 0, 0, 0.54)" }}
+                    style={{ color: "rgba(0, 0, 0)" }}
                   >
                     {user.email}
                   </Typography>

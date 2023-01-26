@@ -8,13 +8,6 @@ export const useStyles = makeStyles((theme) => ({
     boxShadow: "0px 2px 8px -1px rgb(0 0 0 / 10%)",
     paddingRight: "0 !important",
   },
-  header2: {
-    backgroundColor: theme.palette.background.paper,
-    color: theme.palette.text.secondary,
-    transition: "all .2s",
-    boxShadow: "0px 2px 8px -1px rgb(0 0 0 / 10%)",
-    paddingRight: "0 !important",
-  },
   menuButton: {
     display: "none",
     marginRight: theme.spacing(2),

@@ -1,17 +1,24 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
+const mode = localStorage.getItem("theme")
+  ? localStorage.getItem("theme")
+  : "light";
+export const changeTheme = createAsyncThunk("theme/changeTheme", async(data,thunkAPI) => {
+  const { rejectWithValue } = thunkAPI;
+  try {
+    localStorage.setItem("theme", data);
+    return data;
+  } catch (error) {
+    return rejectWithValue(error);
+  }
+});
 
-const mode = localStorage.getItem('theme') ? localStorage.getItem('theme') : 'light';
-export const changeTheme = (data) => {
-  data === 'light' ?  localStorage.setItem('theme', 'light'):  localStorage.setItem('theme', 'dark')
-  return data
-}
 export const themeSlice = createSlice({
   name: "theme",
-  initialState: {mode},
+  initialState: { mode },
   extraReducers: {
-    changeTheme: (state,{payload}) => {
-      state.mode = payload === state.mode ? "dark" : "light";
+    [changeTheme.fulfilled]: (state, { payload }) => {
+      state.mode = payload 
     },
   },
 });

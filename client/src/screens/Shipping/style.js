@@ -19,8 +19,8 @@ export const Input = withStyles((theme) => ({
     padding: "10px 12px",
     transition: theme.transitions.create(["border-color", "box-shadow"]),
     "&:focus": {
-      boxShadow: `${alpha(theme.palette.primary.main, 0.25)} 0 0 0 0.2rem`,
-      borderColor: theme.palette.primary.main,
+      boxShadow: `${alpha(theme.palette.secondary.main, 0.25)} 0 0 0 0.2rem`,
+      borderColor: theme.palette.secondary.main,
     },
   },
 }))(InputBase);

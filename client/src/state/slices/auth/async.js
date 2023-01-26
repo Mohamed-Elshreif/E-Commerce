@@ -16,7 +16,7 @@ const loginUser = createAsyncThunk("auth/authUser", async (arg, thunkAPI) => {
       config()
     );
     
-    secureLocalStorage.setItem("userInfo", JSON.stringify(data));
+    localStorage.setItem("userInfo", JSON.stringify(data));
     return data;
   } catch (error) {
     return rejectWithValue(errors(error));

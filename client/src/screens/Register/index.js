@@ -3,13 +3,13 @@ import queryString from "query-string";
 import Message from "../../components/Message";
 import Loader from "../../components/Loader";
 import { useDispatch, useSelector } from "react-redux";
-import registerUser from '../../state/slices/register/async';
+import registerUser from "../../state/slices/register/async";
 import { Link as RouterLink, useLocation, useNavigate } from "react-router-dom";
 import { useForm, FormProvider } from "react-hook-form";
 import { ReactComponent as LoginImage } from "../../assets/images/login-illu.svg";
-import {logout} from '../../state/slices/auth/index';
-import logo from "../../assets/images/logo.png";
+import { logout } from "../../state/slices/auth/index";
 import Paper from "@material-ui/core/Paper";
+import Logo from "../../components/logo";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import Link from "@material-ui/core/Link";
@@ -47,7 +47,7 @@ const RegisterScreen = () => {
   }, [dispatch, navigate, userInfo, redirect]);
 
   const submitHandler = ({ name, email, password }) => {
-    dispatch(registerUser({name, email, password}));
+    dispatch(registerUser({ name, email, password }));
   };
 
   return (
@@ -61,7 +61,7 @@ const RegisterScreen = () => {
               startIcon={<BiArrowBack />}
               className={classes.backIcon}
             />
-            <img src={logo} alt="" className={classes.logo} />
+            <Logo />
             <FormProvider {...methods}>
               <form
                 className={classes.form}
@@ -146,7 +146,7 @@ const RegisterScreen = () => {
                 Login
               </Link>
             </Box>
-            <AuthThirdParty/>
+            <AuthThirdParty />
             {loading && <Loader my={0} />}
             {error && <Message mt={0}>{error}</Message>}
           </Box>

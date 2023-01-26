@@ -27,6 +27,7 @@ import {
 } from "@material-ui/core";
 import Rating from "@material-ui/lab/Rating";
 import Radio from "@material-ui/core/Radio";
+import { cartOpenDrawer } from "../../state/slices/cart/index";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
@@ -55,7 +56,9 @@ const ProductScreen = () => {
       to: "/cart",
       text: "View Cart",
     }
+
     dispatch(addToCart({id, qty, size}));
+    dispatch(cartOpenDrawer(true));
     dispatch(
       openSnackbar({message:"The product has been added to cart!", variant:"success", link})
     );

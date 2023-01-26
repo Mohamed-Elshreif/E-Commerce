@@ -17,6 +17,7 @@ export {
   orderPay,
   orderDetails,
   UserOrders,
+  calcOrder
 } from "./orders/index";
 export {cart,cartDrawer } from "./cart/index";
 export {default as theme} from './theme/index'

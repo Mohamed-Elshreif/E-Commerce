@@ -76,7 +76,7 @@ const ShippingScreen = () => {
                   control={control}
                   render={({ field, fieldState: { error } }) => (
                     <FormControl fullWidth error={!!error}>
-                      <InputLabel shrink htmlFor="shipping-address">
+                      <InputLabel shrink htmlFor="shipping-address" color="secondary">
                         Address
                       </InputLabel>
                       <Input {...field} id="shipping-address" fullWidth />{" "}
@@ -93,7 +93,7 @@ const ShippingScreen = () => {
                   control={control}
                   render={({ field, fieldState: { error } }) => (
                     <FormControl fullWidth error={!!error}>
-                      <InputLabel shrink htmlFor="shipping-city">
+                      <InputLabel shrink htmlFor="shipping-city" color="secondary">
                         City
                       </InputLabel>
                       <Input {...field} id="shipping-city" fullWidth />{" "}
@@ -110,7 +110,7 @@ const ShippingScreen = () => {
                   control={control}
                   render={({ field, fieldState: { error } }) => (
                     <FormControl fullWidth error={!!error}>
-                      <InputLabel shrink htmlFor="shipping-postalCode">
+                      <InputLabel shrink htmlFor="shipping-postalCode" color="secondary">
                         Postal Code
                       </InputLabel>
                       <Input {...field} id="shipping-postalCode" fullWidth />{" "}
@@ -127,7 +127,7 @@ const ShippingScreen = () => {
                   control={control}
                   render={({ field, fieldState: { error } }) => (
                     <FormControl fullWidth error={!!error}>
-                      <InputLabel shrink htmlFor="shipping-country">
+                      <InputLabel shrink htmlFor="shipping-country" color="secondary">
                         Country
                       </InputLabel>
                       <Input {...field} id="shipping-country" fullWidth />{" "}

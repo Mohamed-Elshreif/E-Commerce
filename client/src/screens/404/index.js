@@ -1,6 +1,6 @@
 import { Button ,Box} from "@material-ui/core";
 import notfound from '../../assets/images/not-found.png';
-
+import {Link} from 'react-router-dom';
 const NotFound = () => {
   return (
     <Box
@@ -16,7 +16,9 @@ const NotFound = () => {
       <Box>
         <img src={notfound} alt='404'/>
       </Box>
-        <Button variant="contained" color='secondary'>Back to home</Button>
+        <Button variant="contained" color='secondary'>
+          <Link to = '/'>Back to home</Link>
+        </Button>
     </Box>
   );
 };

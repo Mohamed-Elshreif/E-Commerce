@@ -27,6 +27,11 @@ export const useStyles = makeStyles((theme) => ({
       width: "90%",
     },
   },
+  grid:{
+    [theme.breakpoints.down("xs")]: {
+      width: "100%",
+    },
+  },
   image: {
     objectFit: "cover",
     height: "100%",

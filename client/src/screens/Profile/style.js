@@ -4,7 +4,7 @@ import { Badge } from "@material-ui/core";
 export const StyledBadge = withStyles((theme) => ({
   root: {
     position: "absolute",
-    top: 0,
+    top: '-55%',
     left: "50%",
     transform: "translate(-50%, -50%)",
   },

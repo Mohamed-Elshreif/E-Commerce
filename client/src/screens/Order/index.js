@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useMemo } from "react";
 import axios from "axios";
 import Message from "../../components/Message";
 import Loader from "../../components/Loader";
@@ -47,8 +47,7 @@ const OrderScreen = () => {
 
   const dispatch = useDispatch();
 
-  const orderDetails = useSelector((state) => state.orderDetails);
-  const { order, loading, error } = orderDetails;
+  const { order, loading, error } = useSelector((state) => state.orderDetails);
 
   const orderPay = useSelector((state) => state.orderPay);
   const { loading: loadingPay, success: successPay } = orderPay;
@@ -59,19 +58,18 @@ const OrderScreen = () => {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
-  if (!loading && order) {
+
     //   Calculate prices
     const addDecimals = (num) => {
       return (Math.round(num * 100) / 100).toFixed(2);
     };
-
-    order.itemsPrice = addDecimals(
-      order?.orderItems.reduce(
+    const itemsPrice = useMemo(() => addDecimals(
+      order?.orderItems?.reduce(
         (acc, item) => acc + item.priceSale * item.qty,
         0
       )
-    );
-  }
+    )
+  ,[order?.orderItems])
 
   useEffect(() => {
     if (!userInfo) {
@@ -79,7 +77,7 @@ const OrderScreen = () => {
     }
 
     const addPayPalScript = async () => {
-      const { data: clientId } = await axios.get("/api/config/paypal");
+      const { data: clientId } = await axios.get(`${process.env.REACT_APP_API_URL}/api/config/paypal`);
       const script = document.createElement("script");
       script.type = "text/javascript";
       script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`;
@@ -89,11 +87,10 @@ const OrderScreen = () => {
       };
       document.body.appendChild(script);
     };
-
     if (!order || successPay || successDeliver || order._id !== id) {
+      dispatch(getOrderDetails({ id }));
       dispatch(orderPayRest());
       dispatch(orderDeliverRest());
-      dispatch(getOrderDetails({ id }));
     } else if (!order.isPaid) {
       if (!window.paypal) {
         addPayPalScript();
@@ -104,7 +101,6 @@ const OrderScreen = () => {
   }, [dispatch, navigate, id, successPay, successDeliver, order, userInfo]);
 
   const successPaymentHandler = (paymentResult) => {
-    console.log(paymentResult);
     dispatch(payOrder({ orderId, paymentResult }));
   };
 
@@ -113,7 +109,7 @@ const OrderScreen = () => {
   };
 
   return loading ? (
-    <Loader my={200} />
+  <Loader my={200} /> 
   ) : error ? (
     <Message mt={100}>{error}</Message>
   ) : (
@@ -141,29 +137,29 @@ const OrderScreen = () => {
               <ListItem divider>
                 <ListItemText
                   primary={`Order`}
-                  secondary={`id: ${order._id}`}
+                  secondary={`id: ${order?._id}`}
                 />
               </ListItem>
               <ListItem divider>
                 <ListItemIcon>
-                  <GrUser fontSize={22} />
+                  <GrUser fontSize={22} className={classes.icon}/>
                 </ListItemIcon>
                 <ListItemText
                   primary="Receiver"
-                  secondary={`${order.user.name}, email: ${order.user.email}`}
+                  secondary={`${order && order.user.name}, email: ${order &&  order.user.email}`}
                 />
               </ListItem>
               <ListItem divider style={{ flexWrap: "wrap" }}>
                 <ListItemIcon>
-                  <GrLocation fontSize={22} />
+                  <GrLocation fontSize={22} className={classes.icon}/>
                 </ListItemIcon>
                 <ListItemText
                   primary="Shipping"
-                  secondary={Object.values(order.shippingAddress).join(", ")}
+                  secondary={order && Object.values(order.shippingAddress).join(", ")}
                 />
-                {order.isDelivered ? (
+                {order && order.isDelivered ? (
                   <Message severity="success" mt={8}>
-                    Delivered on {new Date(order.deliveredAt).toUTCString()}
+                    Delivered on {order && new Date(order.deliveredAt).toUTCString()}
                   </Message>
                 ) : (
                   <Message mt={8}>Not Delivered</Message>
@@ -171,18 +167,18 @@ const OrderScreen = () => {
               </ListItem>
               <ListItem divider style={{ flexWrap: "wrap" }}>
                 <ListItemIcon>
-                  <GrCreditCard fontSize={22} />
+                  <GrCreditCard fontSize={22} className={classes.icon}/>
                 </ListItemIcon>
                 <ListItemText
                   primary="Payment Method"
-                  secondary={order.paymentMethod}
+                  secondary={order?.paymentMethod}
                 />
                 <ListItemAvatar>
                   <img src={paypalImage} alt="" width="80px" height="30px" />
                 </ListItemAvatar>
-                {order.isPaid ? (
+                {order &&  order.isPaid ? (
                   <Message severity="success" mt={8}>
-                    Paid on {new Date(order.paidAt).toUTCString()}
+                    Paid on {new Date(order?.paidAt).toUTCString()}
                   </Message>
                 ) : (
                   <Message mt={8}>Not Paid</Message>
@@ -190,19 +186,19 @@ const OrderScreen = () => {
               </ListItem>
               <ListItem className={classes.orderItems}>
                 <ListItemIcon>
-                  <GrProjects fontSize={22} />
+                  <GrProjects fontSize={22} className={classes.icon}/>
                 </ListItemIcon>
                 <ListItemText primary="Order Items" />
-                {order.orderItems.length > 0 ? (
+                {order?.orderItems.length > 0 ? (
                   <div className={classes.items}>
                     <TableContainer component={Paper} elevation={0}>
                       <Table>
                         <TableHead>
                           <TableRow>
-                            <TableCell>Products</TableCell>
+                            <TableCell className={classes.cell}>Products</TableCell>
                             <Hidden smDown>
-                              <TableCell align="right">Size</TableCell>
-                              <TableCell align="right">Price</TableCell>
+                              <TableCell align="right" className={classes.cell}>Size</TableCell>
+                              <TableCell align="right" className={classes.cell}>Price</TableCell>
                             </Hidden>
                           </TableRow>
                         </TableHead>
@@ -281,23 +277,23 @@ const OrderScreen = () => {
               <List style={{ padding: "10px 20px 20px" }}>
                 <ListItem divider disableGutters>
                   <ListItemText primary="Items:" />
-                  <Typography>${order.itemsPrice}</Typography>
+                  <Typography>${itemsPrice}</Typography>
                 </ListItem>
                 <ListItem divider disableGutters>
                   <ListItemText primary="Shipping:" />
-                  <Typography>${order.shippingPrice}</Typography>
+                  <Typography>${order?.shippingPrice}</Typography>
                 </ListItem>
                 <ListItem divider disableGutters>
                   <ListItemText primary="Tax:" />
-                  <Typography>${order.taxPrice}</Typography>
+                  <Typography>${order?.taxPrice}</Typography>
                 </ListItem>
                 <ListItem disableGutters>
                   <ListItemText primary="Total:" />
-                  <Typography color="secondary">${order.totalPrice}</Typography>
+                  <Typography color="secondary">${order?.totalPrice}</Typography>
                 </ListItem>
               </List>
-              {!order.isPaid && (
-                <Box fullWidth>
+              {!order?.isPaid && (
+                <Box fullwidth="true">
                   {loadingPay && <Loader />}
                   {!sdkReady ? (
                     <Loader />
@@ -313,13 +309,13 @@ const OrderScreen = () => {
               {loadingDeliver && <Loader />}
               {userInfo &&
                 userInfo.isAdmin &&
-                order.isPaid &&
+                order?.isPaid &&
                 !order.isDelivered && (
                   <Box>
                     <Button
                       variant="contained"
                       color="secondary"
-                      fullWidth
+                      fullwidth="true"
                       onClick={deliverHandler}
                     >
                       Mark As Delivered

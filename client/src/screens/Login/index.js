@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import loginUser from '../../state/slices/auth/async';
 import { ReactComponent as LoginImage } from "../../assets/images/login-illu.svg";
 import logo from "../../assets/images/logo.png";
+import Logo from '../../components/logo'
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
@@ -53,7 +54,7 @@ const LoginScreen = () => {
   return (
     <Paper className={classes.root} square>
       <Grid container component={Paper} className={classes.container}>
-        <Grid item sm={12} md={6}>
+        <Grid item sm={12} md={6} className={classes.grid}>
           <Box className={classes.content}>
             <Button
               component={RouterLink}
@@ -61,7 +62,7 @@ const LoginScreen = () => {
               startIcon={<BiArrowBack />}
               className={classes.backIcon}
             />
-            <img src={logo} alt="" className={classes.logo} />
+            <Logo/>
             <FormProvider {...methods}>
               <form
                 className={classes.form}

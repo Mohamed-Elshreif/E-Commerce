@@ -99,7 +99,7 @@ const CartPreview = () => {
               >
                 $
                 {cartItems
-                  .reduce((acc, item) => acc + item.priceSale * item.qty, 0)
+                  .reduce((acc, item) => acc + item.priceSale * item.qty  , 0)
                   .toFixed(2)}
               </Typography>
             </div>
@@ -134,7 +134,7 @@ const CartPreview = () => {
               <Link
                 to="/"
                 component={LinkRouter}
-                color="primary"
+                color="textPrimary"
                 onClick={onDrawerClose}
               >
                 Shopping now!

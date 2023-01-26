@@ -5,6 +5,7 @@ import {
   getOrderDetails,
   payOrder,
   listUserOrders,
+  calculateOrber
 } from "./async";
 
 const createOrdersSlice = createSlice({
@@ -29,23 +30,25 @@ const createOrdersSlice = createSlice({
 const orderDetailsSlice = createSlice({
   name: "orderDetails",
   initialState: {
-    loading: true,
-    orderItems: [],
+    loading: false,
+    order: null,
     shippingAddress: {},
     error: null,
   },
   reducers: {
     detailsOrderRest: (state) => {
-      state = {};
+      state.order = {};
+      state.shippingAddress = {};
+      state.error = null;
     },
   },
   extraReducers: {
-    [getOrderDetails.pending]: (state, action) => {
+    [getOrderDetails.pending]: (state) => {
       state.loading = true;
     },
-    [getOrderDetails.fulfilled]: (state, action) => {
+    [getOrderDetails.fulfilled]: (state, {payload}) => {
       state.loading = false;
-      state.orderItems = action.payload;
+      state.order = payload;
     },
     [getOrderDetails.rejected]: (state, action) => {
       state.loading = false;
@@ -98,6 +101,27 @@ const listUserOrdersSlice = createSlice({
   },
 });
 
+const calcOrderSlice = createSlice({
+  name: "calcOrderSlice",
+  initialState: { loading: false, items: {totalPrice :0,taxPrice:0,shippingPrice:0,itemsPrice:0,orderItems:[]}, error: null },
+  extraReducers: {
+    [calculateOrber.pending]: (state) => {
+      state.loading = true;
+    },
+    [calculateOrber.fulfilled]: (state, {payload}) => {
+      state.loading = false;
+      state.items = payload;
+    },
+    [calculateOrber.rejected]: (state, {payload}) => {
+      state.loading = false;
+      state.error = payload;
+    },
+    [logout]: (state) => {
+      state.orders = {};
+    },
+  },
+});
+
 export const { createOrderRest } = createOrdersSlice.actions;
 export const { detailsOrderRest } = orderDetailsSlice.actions;
 export const { orderPayRest } = orderPaySlice.actions;
@@ -106,3 +130,4 @@ export const createOrders = createOrdersSlice.reducer;
 export const orderPay = orderPaySlice.reducer;
 export const orderDetails = orderDetailsSlice.reducer;
 export const UserOrders = listUserOrdersSlice.reducer;
+export const calcOrder = calcOrderSlice.reducer;

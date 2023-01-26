@@ -9,7 +9,7 @@ export const addToCart = createAsyncThunk(
   async (arg, thunkAPI) => {
     const { rejectWithValue, getState } = thunkAPI;
     try {
-      const { id, qty, size } = arg;
+      const { id, qty = 1, size = 'md' } = arg;
       const { data } = await axios.get(`${API}/api/products/${id}`);
       const payload = {
         name: data.name,
@@ -74,7 +74,7 @@ export const addPaymentMethod = createAsyncThunk(
   async (data, thunkAPI) => {
     const { rejectWithValue } = thunkAPI;
     try {
-      localStorage.setItem("paymentMethod", JSON.stringify(data));
+      localStorage.setItem("paymentMethod", data);
       return data;
     } catch (error) {
       return rejectWithValue(errors(error));

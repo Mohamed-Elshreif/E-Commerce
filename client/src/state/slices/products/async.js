@@ -5,9 +5,10 @@ const API =process.env.REACT_APP_API_URL
 
 export const getProducts = createAsyncThunk(
   "products/getProducts",
-  async ({keyword = "", pageNumber = "", option = "" }, thunkAPI) => {
+  async (arg, thunkAPI) => {
     const { rejectWithValue } = thunkAPI;
     try {
+      const {keyword = "", pageNumber = "", option = "" } = arg
       const { data } = await axios.get(
         `${API}/api/products?keyword=${keyword}&pageNumber=${pageNumber}&option=${option}`
       );
@@ -112,13 +113,13 @@ export const listShop = createAsyncThunk(
       let data = {};
       let error = null;
       if (keyword) {
-        await dispatch(getProducts(keyword, pageNumber));
+        await dispatch(getProducts({keyword, pageNumber}));
         data = getState().productList;
         error = getState().productList.error;
       } else {
         switch (type) {
           case "default":
-            await dispatch(getProducts("", pageNumber));
+            await dispatch(getProducts({keyword : "", pageNumber}));
             data = getState().productList;
             error = getState().productList.error;
             break;
@@ -128,7 +129,7 @@ export const listShop = createAsyncThunk(
             error = getState().productLatest.error;
             break;
           case "rating":
-            await dispatch(listTop(pageNumber));
+            await dispatch(listTop({pageNumber}));
             data = getState().productTopRated;
             error = getState().productTopRated.error;
             break;
@@ -166,7 +167,7 @@ export const filterListShop = createAsyncThunk(
       let filteredProducts = [];
       const filter = getState().filter;
       let { products } = getState().productShop;
-      const { categories, brands, size, priceMax, priceMin } = filter;
+      const { categories, brands, size, priceMax, priceMin} = filter;
       products = products.map((p) => ({
         ...p,
         priceSale: p.price * (1 - p.sale / 100),
