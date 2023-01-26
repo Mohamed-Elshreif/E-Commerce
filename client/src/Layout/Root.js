@@ -4,9 +4,10 @@ import SnackbarMessage from "../components/SnackbarMessage";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 
+
 function Root() {
   return (
-    <Root>
+    <>
       <Header />
       <main className="main">
         <Outlet />
@@ -14,7 +15,7 @@ function Root() {
       <Footer />
       <CartPreview />
       <SnackbarMessage />
-    </Root>
+    </>
   );
 }
 

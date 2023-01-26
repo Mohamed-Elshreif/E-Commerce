@@ -1,7 +1,7 @@
 {
   "name": "frontend",
   "version": "1.0.0",
-  "homepage": "http://Mohamed-Elshreif.github.io/home",
+  "homepage": "http://Mohamed-Elshreif.github.io/",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.11.4",
