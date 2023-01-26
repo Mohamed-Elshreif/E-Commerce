@@ -11,10 +11,7 @@ export const useStyles = makeStyles((theme) => ({
   root: {
     ...theme.mixins.customize.centerFlex(),
     height: "100vh",
-    backgroundImage: `url(${backgroundImage})`,
-    backgroundPosition: "center",
-    backgroundRepeat: "no-repeat",
-    backgroundSize: "cover",
+    backgroundColor: theme.palette.background.default,
     fontFamily: "Poppins, sans-serif",
   },
   container: {

@@ -25,7 +25,6 @@ const ProductCard = (props) => {
   const handleAddToCart = (e, id) => {
     e.preventDefault();
     dispatch(addToCart({ id: id, gty: 1, size: "m" }));
-    dispatch(cartOpenDrawer(true));
   };
   const handleOpenQuickView = (e) => {
     e.preventDefault();

@@ -36,7 +36,7 @@ const HomeCarousel = () => {
         interval={5000}
         infiniteLoop
         showIndicators
-        showArrows
+        showArrows={false}
         swipeable={false}
         showThumbs={false}
         showStatus={false}

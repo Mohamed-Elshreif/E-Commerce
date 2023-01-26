@@ -1,13 +1,12 @@
 import { Outlet } from "react-router-dom";
 import CartPreview from "../components/CartPreview";
 import SnackbarMessage from "../components/SnackbarMessage";
-// import MessengerChat from "../components/MessengerChat";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 
 function Root() {
   return (
-    <>
+    <Root>
       <Header />
       <main className="main">
         <Outlet />
@@ -15,8 +14,7 @@ function Root() {
       <Footer />
       <CartPreview />
       <SnackbarMessage />
-      {/* <MessengerChat /> */}
-    </>
+    </Root>
   );
 }
 

@@ -58,7 +58,6 @@ const ProductScreen = () => {
     }
 
     dispatch(addToCart({id, qty, size}));
-    dispatch(cartOpenDrawer(true));
     dispatch(
       openSnackbar({message:"The product has been added to cart!", variant:"success", link})
     );
