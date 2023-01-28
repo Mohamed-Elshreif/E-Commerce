@@ -27,7 +27,6 @@ import {
 } from "@material-ui/core";
 import Rating from "@material-ui/lab/Rating";
 import Radio from "@material-ui/core/Radio";
-import { cartOpenDrawer } from "../../state/slices/cart/index";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
@@ -44,9 +43,7 @@ const ProductScreen = () => {
   const { handleSubmit, control } = useForm();
   const { id } = useParams();
   const dispatch = useDispatch();
-  const productDetails = useSelector((state) => state.productDetails);
-
-  const { loading, error, product } = productDetails;
+  const  { loading, error, product } = useSelector((state) => state.productDetails);
 
   const classes = useStyles(product);
 
@@ -265,15 +262,6 @@ const ProductScreen = () => {
                 >
                   Add to Cart
                 </Button>
-                {/* <Button
-                  variant='contained'
-                  color='primary'
-                  startIcon={<FiHeart />}
-                  className={classes.button}
-                  disabled={product.countInStock === 0}
-                >
-                  Add to Wishlist
-                </Button> */}
                 <Divider style={{ marginTop: 30 }} />
                 <Box display="flex" alignItems="center" my={2}>
                   <Box

@@ -74,7 +74,7 @@ const ProductReview = ({ reviews, productId }) => {
       </Box>
       <Paper style={{ padding: 20, margin: "24px 0" }} elevation={0}>
         {reviews.map((review) => (
-          <>
+          <Box>
             <Grid container wrap="nowrap" spacing={2}>
               <Grid item>
                 <Avatar
@@ -107,12 +107,13 @@ const ProductReview = ({ reviews, productId }) => {
                 <p style={{ textAlign: "left", marginTop: 5 }}>
                   {review.comment}
                 </p>
-              </Grid>
+              </Grid> 
             </Grid>
             <Divider variant="fullWidth" style={{ margin: "30px 0" }} />
-          </>
+          </Box>
         ))}
         <Grid container>
+
           <Grid item xs={12}>
             {loadingProductReview && <Loader />}
             {errorProductReview && <Message>{errorProductReview}</Message>}

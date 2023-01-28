@@ -24,7 +24,6 @@ export const createProductReview = createAsyncThunk(
     const { rejectWithValue, getState } = thunkAPI;
     try {
       const { productId, review } = arg;
-      console.log(arg);
       const {
         userLogin: { userInfo },
       } = getState();
