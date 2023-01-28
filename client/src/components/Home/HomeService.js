@@ -33,7 +33,7 @@ const HomeService = () => {
       {content.map((item, index) => {
         const { Icon } = item;
         return (
-          <Grid item md={3} key={index + 1}>
+          <Grid item md={4} key={index + 1}>
             <Card className={classes.card} variant="outlined">
               <CardContent>
                 <Icon className={classes.topIcon} />

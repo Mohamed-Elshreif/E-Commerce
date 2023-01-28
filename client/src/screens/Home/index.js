@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import {listTop} from '../../state/slices/products/async'
-import Loader from "../../components/Loader";
+import { listTop } from "../../state/slices/products/async";
 import Meta from "../../components/Meta";
 import HomeCarousel from "../../components/Home/HomeCarousel";
 import Container from "@material-ui/core/Container";
@@ -12,11 +11,11 @@ import { Grid, Typography, Button } from "@material-ui/core";
 import ProductTabs from "../../components/Product/ProductTabs";
 import HomeService from "../../components/Home/HomeService";
 import Alert from "@material-ui/lab/Alert";
+import Placeholder from "../../components/Placeholder";
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
   const productTopRated = useSelector((state) => state.productTopRated);
-
   const {
     loading: loadingProductTop,
     errorProductTop,
@@ -24,7 +23,7 @@ const HomeScreen = () => {
   } = productTopRated;
 
   useEffect(() => {
-    dispatch(listTop({ pageNumber:"1", perPage :"8"}));
+    dispatch(listTop({ pageNumber: "1", perPage: "8" }));
   }, [dispatch]);
 
   return (
@@ -40,8 +39,16 @@ const HomeScreen = () => {
         >
           Top Products
         </Typography>
-        {loadingProductTop ? (
-          <Loader />
+        {!loadingProductTop ? (
+          <>
+            <Grid container spacing={3}>
+              {[1,2,3,4,5,6,7,8].map((_,index) => (
+                <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
+                  <Placeholder />
+                </Grid>
+              ))}
+            </Grid>
+          </>
         ) : errorProductTop ? (
           <Alert severity="error">{errorProductTop}</Alert>
         ) : (

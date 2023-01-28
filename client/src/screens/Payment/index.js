@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CheckoutSteps from "../../components/CheckoutSteps";
 import {addPaymentMethod} from '../../state/slices/cart/async';
@@ -30,14 +30,19 @@ const PaymentScreen = () => {
   const methods = useForm();
   const navigate = useNavigate();
   const { handleSubmit, control } = methods;
-
+  const { userInfo } = useSelector((state) => state.userLogin);
   const cart = useSelector((state) => state.cart);
   const { shippingAddress } = cart;
 
-  if (!shippingAddress.address) {
-    navigate("/shipping");
-  }
-
+  useEffect(() => {
+    if(!userInfo){
+      navigate('/login?redirect=payment')
+    }
+    if (!shippingAddress.address) {
+      navigate("/shipping");
+    }  
+    },[userInfo,shippingAddress])
+ 
   const submitHandler = ({ paymentMethod }) => {
     dispatch(addPaymentMethod(paymentMethod));
     navigate("/placeorder");

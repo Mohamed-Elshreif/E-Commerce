@@ -45,29 +45,22 @@ const ProfileScreen = () => {
 
   const dispatch = useDispatch();
 
-  const userDetails = useSelector((state) => state.userDetails);
-  const { loading, error, user } = userDetails;
-
-  const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo } = userLogin;
-
-  const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
-  const { success } = userUpdateProfile;
-
-  const orderListMy = useSelector((state) => state.orderListMy);
-  const { loading: loadingOrders, error: errorOrders, orders } = orderListMy;
+  const { loading, error, user } = useSelector((state) => state.userDetails);
+  const { userInfo } = useSelector((state) => state.userLogin);
+  const { success } = useSelector((state) => state.userUpdateProfile);
+  const { loading: loadingOrders, error: errorOrders, orders } = useSelector((state) => state.orderListMy);
 
   useEffect(() => {
     if (!userInfo) {
       navigate("/login");
     } else {
-      if (!user || !user.name || success) {
+      if (!user || success) {
         dispatch(userUpdateRest());
         dispatch(usersDetails({id:"profile"}));
         dispatch(listUserOrders());
       } else {
-        setValue("name", user.name);
-        setValue("email", user.email);
+        setValue("name", user?.name);
+        setValue("email", user?.email);
       }
     }
   }, [dispatch, setValue, navigate, userInfo, user, success]);
@@ -81,7 +74,7 @@ const ProfileScreen = () => {
   }, [dispatch, success]);
 
   const submitHandler = ({ name, email, password }) => {
-    dispatch(updateProfile({ id: user._id, name, email, password }));
+    dispatch(updateProfile({ id: user?._id, name, email, password }));
   };
 
   return (
@@ -122,16 +115,16 @@ const ProfileScreen = () => {
                     variant="dot"
                   >
                     <Avatar
-                      src={`https://ui-avatars.com/api/?background=random&color=fff&name=${user.name}`}
+                      src={`https://ui-avatars.com/api/?background=random&color=fff&name=${user?.name}`}
                       className={classes.largeAvatar}
                     />
                   </StyledBadge>
-                  <Typography style={{ marginTop: 32 }}  style={{ color: "rgba(0, 0, 0)" }}>{user.name}</Typography>
+                  <Typography style={{ color: "rgba(0, 0, 0)" ,marginTop: 32}}>{user?.name}</Typography>
                   <Typography
                     variant="caption"
                     style={{ color: "rgba(0, 0, 0)" }}
                   >
-                    {user.email}
+                    {user?.email}
                   </Typography>
                 </Box>
                 <FormProvider {...methods}>
@@ -143,7 +136,7 @@ const ProfileScreen = () => {
                       <InputController
                         name="name"
                         label="Name"
-                        defaultValue={user.name}
+                        defaultValue={user?.name}
                         required
                       />
                     </FormControl>
@@ -151,7 +144,7 @@ const ProfileScreen = () => {
                       <InputController
                         name="email"
                         label="Email"
-                        defaultValue={user.email}
+                        defaultValue={user?.email}
                         required
                         rules={{
                           pattern: {

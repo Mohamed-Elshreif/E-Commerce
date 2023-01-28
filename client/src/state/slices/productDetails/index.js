@@ -24,7 +24,9 @@ const productCreateReviewSlice = createSlice({
   initialState: { loading: false, success: false, error: null },
   reducers: {
     productReviewRest: (state) => {
-      state = {};
+      state.loading = false;
+      state.success = false;
+      state.error = null
     },
   },
   extraReducers: {

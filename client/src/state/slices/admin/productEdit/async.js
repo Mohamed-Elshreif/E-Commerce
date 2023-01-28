@@ -7,7 +7,7 @@ const API =process.env.REACT_APP_API_URL
 
 
 export const deleteProduct = createAsyncThunk(
-  "productDetails/deleteProduct",
+  "deleteProduct/deleteProduct",
   async ({ id }, thunkAPI) => {
     const { rejectWithValue, getState } = thunkAPI;
     try {
@@ -27,7 +27,7 @@ export const deleteProduct = createAsyncThunk(
 );
 
 export const updateProduct = createAsyncThunk(
-  "productDetails/updateProduct",
+  "updateProduct/updateProduct",
   async ({ product }, thunkAPI) => {
     const { rejectWithValue, getState } = thunkAPI;
     try {
@@ -48,7 +48,7 @@ export const updateProduct = createAsyncThunk(
 );
 
 export const createProduct = createAsyncThunk(
-  "productDetails/createProduct",
+  "createProduct/createProduct",
   async ({ product }, thunkAPI) => {
     const { rejectWithValue, getState } = thunkAPI;
     try {

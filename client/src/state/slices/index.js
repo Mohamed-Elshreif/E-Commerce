@@ -1,4 +1,3 @@
-export { default as AuthTokenSlice } from "./userToken/index";
 export { default as userDetailsSlice } from "./userDetails/index";
 export { default as updateProfileSlice } from "./updateProfile/index";
 export { default as registerSlice } from "./register/index";

@@ -12,7 +12,9 @@ export const usersListSlice = createSlice({
   initialState,
   reducers: {
     userListRest: (state) => {
-      state = {};
+      state.loading = false;
+      state.users = [];
+      state.error = null
     },
   },
   extraReducers: {
@@ -22,7 +24,6 @@ export const usersListSlice = createSlice({
     [getListUsers.fulfilled]: (state, { payload }) => {
       state.loading = false;
       state.users = payload;
-      console.log(payload)
     },
     [getListUsers.rejected]: (state, { payload }) => {
       state.loading = false;

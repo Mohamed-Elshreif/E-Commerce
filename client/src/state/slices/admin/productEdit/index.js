@@ -5,10 +5,10 @@ const deleteProductsSlice = createSlice({
   name: " deleteProduct",
   initialState: { loading: false, success: false, error: null },
   extraReducers: {
-    [deleteProduct.pending]: (state, action) => {
+    [deleteProduct.pending]: (state) => {
       state.loading = true;
     },
-    [deleteProduct.fulfilled]: (state, action) => {
+    [deleteProduct.fulfilled]: (state) => {
       state.loading = false;
       state.success = true;
     },
@@ -24,8 +24,10 @@ const updateProductSlice = createSlice({
   initialState: { loading: false, success: false, product: {}, error: null },
   reducers: {
     updateProductRest: (state) => {
-      state.product = {};
-    },
+      state.loading = false;
+      state.success = false;
+      state.error = null;
+      state.product = {};    },
   },
   extraReducers: {
     [updateProduct.pending]: (state, action) => {
@@ -48,11 +50,14 @@ const createProductSlice = createSlice({
   initialState: { loading: false, success: false, product: {}, error: null },
   reducers: {
     createProductRest: (state) => {
-      state = {};
+      state.loading = false;
+      state.success = false;
+      state.error = null;
+      state.product = {};
     },
   },
   extraReducers: {
-    [createProduct.pending]: (state, action) => {
+    [createProduct.pending]: (state) => {
       state.loading = true;
     },
     [createProduct.fulfilled]: (state, action) => {

@@ -39,19 +39,22 @@ const PlaceOrderScreen = () => {
   const classes = useStyles();
   const navigate = useNavigate();
   const cart = useSelector((state) => state.cart);
-  const orderCreate = useSelector((state) => state.orderCreate);
-  const { order, success, error } = orderCreate;
+  const { order, success, error } = useSelector((state) => state.orderCreate);
+  const { userInfo } = useSelector((state) => state.userLogin);
 
   if (!cart.shippingAddress.address) {
-    navigate("/shipping");
-  } else if (!cart.paymentMethod) {
-    navigate("/payment");
+    navigate("/shipping",{replace:true});
+  } else if (!cart?.paymentMethod) {
+    navigate("/payment",{replace:true});
+  } else if(!userInfo){
+    navigate('/login?redirect=placeorder')
   }
+  
   const address = Object.values(cart.shippingAddress).join(", ");
   useEffect(() => {
     if (success) {
       navigate(`/order/${order._id}`);
-      dispatch(openSnackbar("Order has been created successfully", "success"));
+      dispatch(openSnackbar({message:"Order has been created successfully", variant:"success"}));
     }
     dispatch(calculateOrber())
   }, [navigate, success]);
@@ -189,7 +192,7 @@ const PlaceOrderScreen = () => {
               </ListItem>
             </List>
           </Grid>
-        <OrderSummary error={error} placeOrderHandler={placeOrderHandler}/>
+        <OrderSummary placeOrderHandler={placeOrderHandler}/>
         </Grid>
       </Paper>
     </Container>

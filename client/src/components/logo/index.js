@@ -11,7 +11,7 @@ function Logo({position}) {
   const classes = useStyles();
 
   return (
-    <Link to="/" className={classes.logoWrapper} style={{justifyContent:position}}>
+    <Link to="/" className={classes.logoWrapper}>
       <img
         src={type === "light" ? logoLight : logoDark}
         alt="logo"

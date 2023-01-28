@@ -4,7 +4,6 @@ import { Link as RouterLink, useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import loginUser from '../../state/slices/auth/async';
 import { ReactComponent as LoginImage } from "../../assets/images/login-illu.svg";
-import logo from "../../assets/images/logo.png";
 import Logo from '../../components/logo'
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
@@ -42,9 +41,10 @@ const LoginScreen = () => {
 
   useEffect(() => {
     if (userInfo) {
-      navigate(redirect,{replace:true});
+       const path_page = redirect === '/' ? '/' : `/${redirect}`
+      navigate(path_page,{replace:true})     
     }
-  }, [navigate, userInfo, redirect]);
+  }, [ userInfo, redirect]);
 
   const submitHandler = ({ email, password }) => {
     dispatch(loginUser({email, password}));

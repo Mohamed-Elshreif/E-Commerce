@@ -13,7 +13,10 @@ export const updateProfileSlice = createSlice({
   initialState,
   reducers: {
     userUpdateRest: (state) => {
-      state.userInfo = {};
+      state.success = false;
+      state.loading = false;
+      state.userInfo = null;
+      state.error = null
     },
   },
   extraReducers: {

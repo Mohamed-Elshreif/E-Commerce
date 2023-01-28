@@ -29,7 +29,6 @@ const Header = () => {
   const {
     palette: { type },
   } = useTheme();
-  
   const { cartItems } = useSelector((state) => state.cart);
   const { userInfo } = useSelector((state) => state.userLogin);
   const [mobile, setMobile] = useState(false);

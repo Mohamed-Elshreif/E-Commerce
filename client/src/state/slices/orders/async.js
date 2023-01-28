@@ -56,13 +56,13 @@ export const payOrder = createAsyncThunk(
   async (arg, thunkAPI) => {
     const { rejectWithValue, getState } = thunkAPI;
     try {
-      const { orderId, paymentResult } = arg;
+      const { id, paymentResult } = arg;
       const {
         userLogin: { userInfo },
       } = getState();
       const token = userInfo && userInfo.token;
       const { data } = await axios.put(
-        `${API}/api/orders/${orderId}/pay`,
+        `${API}/api/orders/${id}/pay`,
         paymentResult,
         config(token)
       );

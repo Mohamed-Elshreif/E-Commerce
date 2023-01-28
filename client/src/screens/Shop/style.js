@@ -28,7 +28,7 @@ export const useStyles = makeStyles((theme) => ({
     },
     "& .MuiInputBase-formControl": {
       borderRadius: 4,
-      marginRight: theme.spacing(6),
+      marginRight: theme.spacing(1),
       color: theme.palette.text.primary,
     },
   },
@@ -57,9 +57,6 @@ export const useStyles = makeStyles((theme) => ({
       "rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px",
     padding: 22,
     marginBottom: theme.spacing(5),
-    // '& .MuiChip-root + .MuiChip-root': {
-    //   marginLeft: 12,
-    // },
     "& .MuiChip-root": {
       margin: 4,
     },
@@ -70,6 +67,7 @@ export const useStyles = makeStyles((theme) => ({
     marginBottom: 16,
     "& .MuiPagination-ul": {
       justifyContent: "flex-end",
+      flexWrap:'nowrap',
     },
   },
 }));

@@ -1,3 +1,5 @@
+import { FaRProject } from "react-icons/fa";
+
 export { default as Home } from "./Home";
 export { default as Product } from "./Product";
 export { default as Cart } from "./Cart";
@@ -15,4 +17,5 @@ export { default as ProductEdit } from "./Edit_product";
 export { default as ProductCreate } from "./Create_Product";
 export { default as Shop } from "./Shop";
 export { default as OrderList } from "./List_orders";
-export {default as NotFound} from './404'
+export { default as NotFound} from './404'
+export { default as ErrorPage} from './Error'

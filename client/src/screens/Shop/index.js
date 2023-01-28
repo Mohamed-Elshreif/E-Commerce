@@ -105,7 +105,7 @@ const ShopScreen = () => {
           <Box className={classes.topFilter}>
             <div>
               <FormControl variant="outlined" className={classes.selectBox}>
-                <FormLabel>Sort by</FormLabel>
+                <FormLabel xs={{minWidth: 61}}>Sort by</FormLabel>
                 <Select
                   value={sort_by}
                   onChange={(e) => navigate(`/shop?sort_by=${e.target.value}`)}

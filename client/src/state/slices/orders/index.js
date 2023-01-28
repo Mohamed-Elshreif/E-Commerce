@@ -37,7 +37,8 @@ const orderDetailsSlice = createSlice({
   },
   reducers: {
     detailsOrderRest: (state) => {
-      state.order = {};
+      state.loading = false;
+      state.order = null;
       state.shippingAddress = {};
       state.error = null;
     },
@@ -62,7 +63,9 @@ const orderPaySlice = createSlice({
   initialState: { loading: false, success: false, error: null },
   reducers: {
     orderPayRest: (state) => {
-      state = {};
+      state.loading = false;
+      state.success = false;
+      state.error = null;
     },
   },
   extraReducers: {

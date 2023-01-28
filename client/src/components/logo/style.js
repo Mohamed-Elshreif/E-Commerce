@@ -7,13 +7,17 @@ export const useStyles = makeStyles((theme) => ({
     width: "100%",
     display: "flex",
     alignItems: "center",
+    justifyContent:'center'
   },
   logo: {
     flexGrow: 1,
+    marginLeft:0,
     maxWidth: 140,
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down("md")]: {
       maxWidth: 120,
-      marginLeft: 16,
+    },
+    [theme.breakpoints.down("sm")]: {
+      maxWidth: 100,
     },
   },
 }));

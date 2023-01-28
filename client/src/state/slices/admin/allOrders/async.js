@@ -8,7 +8,7 @@ const API =process.env.REACT_APP_API_URL
 
 ///    LIST ALL ORDERS   ///
 export const listAllOrders = createAsyncThunk(
-  "createOrder/listAllOrders",
+  "allOrders/listAllOrders",
   async (_, thunkAPI) => {
     const { rejectWithValue, getState } = thunkAPI;
     try {
@@ -25,7 +25,7 @@ export const listAllOrders = createAsyncThunk(
 );
 
 export const deliverOrder = createAsyncThunk(
-  "createOrder/deliverOrder",
+  "orderDeliver/deliverOrder",
   async (arg, thunkAPI) => {
     const { rejectWithValue, getState } = thunkAPI;
     try {

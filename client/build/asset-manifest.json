@@ -1,0 +1,29 @@
+{
+  "files": {
+    "main.css": "/static/css/main.58e2ef14.css",
+    "main.js": "/static/js/main.558f1940.js",
+    "static/media/background.jpg": "/static/media/background.b6f89a20844402ca5c9e.jpg",
+    "static/media/payment.svg": "/static/media/payment.1ae32dfe899dff2c08ccd202bdb095e2.svg",
+    "static/media/not-found.png": "/static/media/not-found.9eb1ea01dea3c47698a4.png",
+    "static/media/shipping.svg": "/static/media/shipping.16748299d2cfcbd4fcaf3a712f10f82c.svg",
+    "static/media/banner_2.jpg": "/static/media/banner_2.9ba75dc770c5f0fb0e12.jpg",
+    "static/media/banner_1.jpg": "/static/media/banner_1.f732aaac498a453ba710.jpg",
+    "static/media/paypal.png": "/static/media/paypal.b52526a49762c8a6496c.png",
+    "static/media/cartEmpty.png": "/static/media/cartEmpty.9c3407aee82d86474e6c.png",
+    "static/media/logo_dark.png": "/static/media/logo_dark.f6b7705a69b402e97965.png",
+    "static/media/login-illu.svg": "/static/media/login-illu.3e0cc2375da1ae9da7d15e8ca816ff3c.svg",
+    "static/media/customer-service.svg": "/static/media/customer-service.6ad3d5f8ce9121ef82b2d3319b0799a9.svg",
+    "static/media/delivery-man.svg": "/static/media/delivery-man.24567b79cf77dd7bfab13e4288531cc0.svg",
+    "static/media/exchange.svg": "/static/media/exchange.67feba4863e2260c68aaf641bb7d087b.svg",
+    "static/media/user.svg": "/static/media/user.9691a894b65e54e7002d88fd6eccffc4.svg",
+    "static/media/search.svg": "/static/media/search.7a6845d102d3850b5dad1e8f5790c2b1.svg",
+    "index.html": "/index.html",
+    "static/media/cart.svg": "/static/media/cart.93529fdc4b7060843f86415777ea3d85.svg",
+    "main.58e2ef14.css.map": "/static/css/main.58e2ef14.css.map",
+    "main.558f1940.js.map": "/static/js/main.558f1940.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.58e2ef14.css",
+    "static/js/main.558f1940.js"
+  ]
+}

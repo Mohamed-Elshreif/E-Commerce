@@ -13,10 +13,9 @@ import {
 } from "@material-ui/core";
 import Message from "../../../components/Message";
 
-function OrderSummary({error,placeOrderHandler}) {
+function OrderSummary({error = '',placeOrderHandler}) {
     const classes = useStyles();
     const {totalPrice,taxPrice,shippingPrice,itemsPrice,orderItems} = useSelector((state) => state.calcOrder.items);
-    console.log(totalPrice,taxPrice,shippingPrice,itemsPrice,orderItems)
   return (
     <Grid item xs={12} lg={4}>
     <Paper elevation={0} className={classes.cartTotalWrapper}>

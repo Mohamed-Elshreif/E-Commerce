@@ -24,7 +24,9 @@ const orderDeliverSlice = createSlice({
   initialState: { loading: false, success: false, error: null },
   reducers: {
     orderDeliverRest: (state) => {
-      state = {};
+      state.loading = false;
+      state.success = false;
+      state.error = null;
     },
   },
   extraReducers: {

@@ -1,6 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
 import {
-  AuthTokenSlice,
   userDetailsSlice,
   updateProfileSlice,
   registerSlice,
@@ -47,7 +46,6 @@ const storeToolkit = configureStore({
     userRegister: registerSlice,
     userDetails: userDetailsSlice,
     userUpdateProfile: updateProfileSlice,
-    userAuthToken: AuthTokenSlice,
     userList: usersListSlice, // for admin user only
     userDelete: deleteUserSlice, // for admin user only
     userUpdate: updateUsersSlice, // for admin user only

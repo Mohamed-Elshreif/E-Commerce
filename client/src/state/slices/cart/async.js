@@ -74,7 +74,7 @@ export const addPaymentMethod = createAsyncThunk(
   async (data, thunkAPI) => {
     const { rejectWithValue } = thunkAPI;
     try {
-      localStorage.setItem("paymentMethod", data);
+      localStorage.setItem("paymentMethod", JSON.stringify(data));
       return data;
     } catch (error) {
       return rejectWithValue(errors(error));

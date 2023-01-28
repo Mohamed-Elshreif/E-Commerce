@@ -4,7 +4,7 @@ import { logout } from "../auth/index";
 
 const initialState = {
   loading: false,
-  user: {},
+  user: null,
   error: null,
 };
 
@@ -12,7 +12,7 @@ export const userDetailsSlice = createSlice({
   name: "userDetails",
   initialState,
   extraReducers: {
-    [userDetails.pending]: (state, action) => {
+    [userDetails.pending]: (state) => {
       state.loading = true;
     },
     [userDetails.fulfilled]: (state, action) => {

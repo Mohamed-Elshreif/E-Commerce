@@ -7,6 +7,7 @@ import Loader from "../../components/Loader";
 import { listProductDetails } from "../../state/slices/productDetails/async";
 import { openSnackbar } from "../../state/slices/snackbar/index";
 import { updateProduct } from "../../state/slices/admin/productEdit/async";
+import {updateProductRest} from "../../state/slices/admin/productEdit"
 import {
   Typography,
   Paper,
@@ -61,7 +62,7 @@ const ProductEditScreen = ({ match, history }) => {
 
   useEffect(() => {
     if (successUpdate) {
-      dispatch({ type: PRODUCT_UPDATE_RESET });
+      dispatch(updateProductRest());
       dispatch(openSnackbar("Product has been updated!", "success"));
       history.push("/admin/productlist");
     } else {

@@ -18,6 +18,7 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     logout: (state) => {
+      state.loading = false;
       state.isAuth = false;
       state.userInfo = null;
       localStorage.removeItem('userInfo')

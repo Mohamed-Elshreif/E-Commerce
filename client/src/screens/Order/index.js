@@ -48,16 +48,9 @@ const OrderScreen = () => {
   const dispatch = useDispatch();
 
   const { order, loading, error } = useSelector((state) => state.orderDetails);
-
-  const orderPay = useSelector((state) => state.orderPay);
-  const { loading: loadingPay, success: successPay } = orderPay;
-
-  const orderDeliver = useSelector((state) => state.orderDeliver);
-  const { loading: loadingDeliver, success: successDeliver } = orderDeliver;
-
-  const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo } = userLogin;
-
+  const { loading: loadingPay, success: successPay } = useSelector((state) => state.orderPay);
+  const { loading: loadingDeliver, success: successDeliver }  = useSelector((state) => state.orderDeliver);
+  const { userInfo } = useSelector((state) => state.userLogin);
 
     //   Calculate prices
     const addDecimals = (num) => {
@@ -77,7 +70,7 @@ const OrderScreen = () => {
     }
 
     const addPayPalScript = async () => {
-      const { data: clientId } = await axios.get(`${process.env.REACT_APP_API_URL}/api/config/paypal`);
+      const clientId = process.env.REACT_APP_PAYPAL_CLIENT_ID;
       const script = document.createElement("script");
       script.type = "text/javascript";
       script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`;
@@ -87,6 +80,7 @@ const OrderScreen = () => {
       };
       document.body.appendChild(script);
     };
+
     if (!order || successPay || successDeliver || order._id !== id) {
       dispatch(getOrderDetails({ id }));
       dispatch(orderPayRest());
@@ -101,11 +95,11 @@ const OrderScreen = () => {
   }, [dispatch, navigate, id, successPay, successDeliver, order, userInfo]);
 
   const successPaymentHandler = (paymentResult) => {
-    dispatch(payOrder({ orderId, paymentResult }));
+    dispatch(payOrder({ id, paymentResult }));
   };
 
   const deliverHandler = () => {
-    dispatch(deliverOrder({ orderId }));
+    dispatch(deliverOrder({ id }));
   };
 
   return loading ? (
@@ -299,7 +293,7 @@ const OrderScreen = () => {
                     <Loader />
                   ) : (
                     <PayPalButton
-                      amount={order.totalPrice}
+                      amount={order?.totalPrice}
                       onSuccess={successPaymentHandler}
                       style={{ width: "100%" }}
                     />
