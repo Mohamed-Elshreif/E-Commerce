@@ -1,4 +1,16 @@
 
+### Tools
+
+- react.js
+- Redux Toolkit
+- React-Hook-Form
+- Mobile-first workflow
+- Material UI
+- Lazy Load
+- React router dom v6 
+- Node.js
+- Express.js
+- Mongo.DB
 
 ## Features
 
